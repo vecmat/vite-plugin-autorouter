@@ -25,10 +25,10 @@ Add to your `vite.config.js`:
 
 ```js
 import Vue from "@vitejs/plugin-vue";
-import Pages from "vite-plugin-autorouter";
+import Auto from "vite-plugin-autorouter";
 
 export default {
-    plugins: [Vue(), Pages()],
+    plugins: [Vue(), Auto()],
 };
 ```
 
@@ -45,12 +45,12 @@ Add to your `vite.config.js`:
 
 ```js
 import Vue from "@vitejs/plugin-vue";
-import Pages from "vite-plugin-autorouter";
+import Auto from "vite-plugin-autorouter";
 
 export default {
     plugins: [
         Vue(),
-        Pages({
+        Auto({
             react: true,
         }),
     ],
@@ -62,14 +62,14 @@ export default {
 By default a page is a Vue component exported from a `.vue` or `.js` file in the
 `src/pages` directory.
 
-You can access the generated routes by importing the `virtual:generated-pages`
+You can access the generated routes by importing the `virtual:autorouter`
 module in your application.
 
 ### Vue
 
 ```js
 import { createRouter } from "vue-router";
-import routes from "virtual:generated-pages";
+import routes from "virtual:autorouter";
 
 const router = createRouter({
     // ...
@@ -89,7 +89,7 @@ const router = createRouter({
 ```js
 import { BrowserRouter } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
-import routes from "virtual:generated-pages-react";
+import routes from "virtual:autorouter-react";
 
 ReactDOM.render(<BrowserRouter>{renderRoutes(routes)}</BrowserRouter>, document.getElementById("root"));
 ```
@@ -108,11 +108,11 @@ plugin:
 
 ```js
 // vite.config.js
-import Pages from "vite-plugin-autorouter";
+import Auto from "vite-plugin-autorouter";
 
 export default {
     plugins: [
-        Pages({
+        Auto({
             pagesDir: "src/views",
         }),
     ],
@@ -157,7 +157,7 @@ src/
 // vite.config.js
 export default {
     plugins: [
-        Pages({
+        Auto({
             pagesDir: [
                 { dir: "src/pages", baseRoute: "" },
                 { dir: "src/features/**/pages", baseRoute: "features" },
@@ -199,7 +199,7 @@ src/pages/
 // vite.config.js
 export default {
     plugins: [
-        Pages({
+        Auto({
             exclude: ["**/components/*.vue"],
         }),
     ],
@@ -224,7 +224,7 @@ can use a function to resolve the value based on the route path. For example:
 // vite.config.js
 export default {
     plugins: [
-        Pages({
+        Auto({
             importMode(path) {
                 // Load about page synchronously, all other pages are async.
                 return path.includes("about") ? "sync" : "async";
@@ -273,7 +273,7 @@ useful for augmenting your routes with extra data (e.g. route metadata).
 export default {
     // ...
     plugins: [
-        Pages({
+        Auto({
             extendRoute(route, parent) {
                 if (route.path === "/") {
                     // Index is unauthenticated.
