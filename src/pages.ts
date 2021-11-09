@@ -38,7 +38,8 @@ export async function resolvePages(options: ResolvedOptions) {
     });
 
     for (const pageDir of pageDirFiles) {
-        for (const file of pageDir.files) await setPage(pages, pageDir, file, options);
+        for (const file of pageDir.files) 
+            await setPage(pages, pageDir, file, options);
     }
 
     const routes: string[] = [];

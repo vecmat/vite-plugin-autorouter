@@ -49,16 +49,16 @@
         }
     },
     "dependencies": {
-        "@antfu/utils": "^0.0.1",
-        "@vecmat/eslint-config": "^0.0.3",
+        "@antfu/utils": "^0.3.0",
         "debug": "^4.3.2",
         "deep-equal": "^2.0.5",
         "fast-glob": "^3.2.7",
         "json5": "^2.2.0",
+        "toml": "^3.0.0",
         "yaml": "^2.0.0-8"
     },
     "devDependencies": {
-        "@hannoeru/eslint-config": "^0.3.0",
+        "@vecmat/eslint-config": "^0.1.2",
         "@types/debug": "^4.1.7",
         "@types/deep-equal": "^1.0.1",
         "@types/glob-to-regexp": "^0.4.1",

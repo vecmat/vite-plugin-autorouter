@@ -1,6 +1,8 @@
 import JSON5 from "json5";
 import YAML from "yaml";
 
+import TOML from "toml";
+
 import type { SFCDescriptor, SFCBlock } from "@vue/compiler-sfc";
 import type { ResolvedOptions } from "./types";
 
@@ -11,7 +13,7 @@ export async function parseSFC(code: string): Promise<SFCDescriptor> {
             pad: "space",
         }).descriptor;
     } catch {
-        throw new Error('[vite-plugin-autorouter] Vue3\'s "@vue/compiler-sfc" is required.');
+        throw new Error("[vite-plugin-autorouter] Vue3\'s '@vue/compiler-sfc' is required.");
     }
 }
 
@@ -29,6 +31,12 @@ export function parseCustomBlock(block: SFCBlock, filePath: string, options: Res
             return JSON.parse(block.content);
         } catch (err: any) {
             throw new Error(`Invalid JSON format of <${block.type}> content in ${filePath}\n${err.message}`);
+        }
+    } else if (lang === "toml") {
+        try {
+            return TOML.parse(block.content);
+        } catch (err: any) {
+            throw new Error(`Invalid TOML format of <${block.type}> content in ${filePath}\n${err.message}`);
         }
     } else if (lang === "yaml" || lang === "yml") {
         try {
