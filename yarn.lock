@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@antfu/utils@^0.0.1":
+"@antfu/utils@^0.3.0":
   version "0.3.0"
   resolved "https://npm.vecmat.cc/@antfu%2futils/-/utils-0.3.0.tgz#6306c43b52a883bd8e973e3ed8dd64248418bcc4"
   integrity sha512-UU8TLr/EoXdg7OjMp0h9oDoIAVr+Z/oW9cpOxQQyrsz6Qzd2ms/1CdWx8fl2OQdFpxGmq5Vc4TwfLHId6nAZjA==
@@ -351,56 +351,6 @@
     js-yaml "^3.13.1"
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
-
-"@hannoeru/eslint-config-basic@0.3.0":
-  version "0.3.0"
-  resolved "https://npm.vecmat.cc/@hannoeru%2feslint-config-basic/-/eslint-config-basic-0.3.0.tgz#19c4f2591efa82fa18dbbd0ad52a5d5a59784217"
-  integrity sha512-Jh8hbvAz07c5ZxL1X3UJ2IxVwisqf4uHKYrof0Byk2AQ0czyPs2LD0kIKcIKxf93onyuPiDO6iz+zjXg4ESF8A==
-  dependencies:
-    eslint-config-standard "^16.0.3"
-    eslint-plugin-eslint-comments "^3.2.0"
-    eslint-plugin-html "^6.2.0"
-    eslint-plugin-import "^2.25.2"
-    eslint-plugin-jsonc "^1.7.0"
-    eslint-plugin-node "^11.1.0"
-    eslint-plugin-promise "^5.1.0"
-    eslint-plugin-unicorn "^37.0.1"
-    eslint-plugin-yml "^0.10.1"
-    jsonc-eslint-parser "^1.4.1"
-    yaml-eslint-parser "^0.4.1"
-
-"@hannoeru/eslint-config-react@0.3.0":
-  version "0.3.0"
-  resolved "https://npm.vecmat.cc/@hannoeru%2feslint-config-react/-/eslint-config-react-0.3.0.tgz#0b36795dda370aee5d523c2f364bae18378ad32d"
-  integrity sha512-UodFqs8UPFYqU40GEIfL47dloiu251RpPDKJ4FPpjI8E/9kjX2FvUqa0tnHtuwWhWdAbZe31seynZhZE3DYodQ==
-  dependencies:
-    "@hannoeru/eslint-config-ts" "0.3.0"
-    eslint-plugin-react "^7.26.1"
-
-"@hannoeru/eslint-config-ts@0.3.0":
-  version "0.3.0"
-  resolved "https://npm.vecmat.cc/@hannoeru%2feslint-config-ts/-/eslint-config-ts-0.3.0.tgz#326599049b3138623a393ad0fa2362ea51510f69"
-  integrity sha512-X0fw74IB3GEHsVe9+c5MDWoyrfwIvz0o77KacKvYuQuxfAh0hKwX9GAblDWoVy0XvVpimVyFSrXrrH2CyYYTTg==
-  dependencies:
-    "@hannoeru/eslint-config-basic" "0.3.0"
-    "@typescript-eslint/eslint-plugin" "^5.1.0"
-    "@typescript-eslint/parser" "^5.1.0"
-
-"@hannoeru/eslint-config-vue@0.3.0":
-  version "0.3.0"
-  resolved "https://npm.vecmat.cc/@hannoeru%2feslint-config-vue/-/eslint-config-vue-0.3.0.tgz#524623ad38f16ba31bbef39f8e9e5a5cef95a4fa"
-  integrity sha512-JwlIsLozyLHM0gaJU2yjGZb2LbV5M01hSMMzbGESFEWfv0ElJGklVejgK3Jv+Wj+NwkyhcJmRg+musp31J+6cA==
-  dependencies:
-    "@hannoeru/eslint-config-ts" "0.3.0"
-    eslint-plugin-vue "7.20.0"
-
-"@hannoeru/eslint-config@^0.3.0":
-  version "0.3.0"
-  resolved "https://npm.vecmat.cc/@hannoeru%2feslint-config/-/eslint-config-0.3.0.tgz#1bfac34a3925d6e9a79f402a60a74ddd03e49e91"
-  integrity sha512-9PP2sH5bJ7ivwArwLf1SpFC/taKSfph+KnQsSZvfCQ+XZfNUEOXFlYj5nwtz1FDwhkIfzIGnpe/sR0vDbumvEA==
-  dependencies:
-    "@hannoeru/eslint-config-react" "0.3.0"
-    "@hannoeru/eslint-config-vue" "0.3.0"
 
 "@humanwhocodes/config-array@^0.6.0":
   version "0.6.0"
@@ -878,9 +828,9 @@
     eslint-visitor-keys "^3.0.0"
 
 "@vecmat/eslint-config-basic@0.3.0":
-  version "0.0.1"
-  resolved "https://registry.npmjs.org/@vecmat/eslint-config-basic/-/eslint-config-basic-0.0.1.tgz#3641edc80da1cf559663e3cef168cc5878f388e8"
-  integrity sha512-hOqUc4K1/RAbTAoLHHCUEDO/0iubgVxaIGQejzHAnTf1dTUle2HU5zHU+X98KlFeycTacUX4F47p0OawrckT4g==
+  version "0.0.5"
+  resolved "https://registry.npmjs.org/@vecmat/eslint-config-basic/-/eslint-config-basic-0.0.5.tgz#599db6ecfe34aa25823e568fa074d794c8762f01"
+  integrity sha512-v4x5LfFZ6RliBLngSU4MbPepEhzXOQ6009KkJ4wNxtjr0ELcoJq85h6iF9CJnqlmr50WOxP1cxiOIHm0hJVJEA==
   dependencies:
     eslint-config-standard "^16.0.3"
     eslint-plugin-eslint-comments "^3.2.0"
@@ -895,14 +845,14 @@
     yaml-eslint-parser "^0.4.1"
 
 "@vecmat/eslint-config-react@0.3.0":
-  version "0.0.1"
-  resolved "https://registry.npmjs.org/@vecmat/eslint-config-react/-/eslint-config-react-0.0.1.tgz#8aae07a8fd09dcfcb1cc501313045d79c12ba839"
-  integrity sha512-usEW6HoG2BeAD4VWCio6+x9JHM48crC2i4ZRKmlDWMsuV+g8NiSE0518Ey13LS1qa/S8AV4J/2oYzP9zznIhHQ==
+  version "0.0.5"
+  resolved "https://registry.npmjs.org/@vecmat/eslint-config-react/-/eslint-config-react-0.0.5.tgz#3fad88d0a6db0e8ae8a19aa2fbfc4bec02e38603"
+  integrity sha512-SFB5iXVdr3QjM6cwwwAFWz02DYYRDXE522PAWD8v4ANwRUuGuzIAjRWDBDvoZkhro/GZPylP+BZIg2Vmbvxzcw==
   dependencies:
-    "@vecmat/eslint-config-ts" "0.3.0"
+    "@vecmat/eslint-config-ts" "^0.0.1"
     eslint-plugin-react "^7.26.1"
 
-"@vecmat/eslint-config-ts@0.3.0":
+"@vecmat/eslint-config-ts@^0.0.1":
   version "0.0.1"
   resolved "https://registry.npmjs.org/@vecmat/eslint-config-ts/-/eslint-config-ts-0.0.1.tgz#90797116ce111a81bb2fad946d5cc3c6ea6063de"
   integrity sha512-zJA7G3w1UnCxjYs6/ToCRmB3MCVZXovXPa03177Y9fg0D/wvovuTOEdAxyzfVa+6HsgRtGjJPQVduPKW/l4hhA==
@@ -912,11 +862,11 @@
     "@vecmat/eslint-config-basic" "0.3.0"
 
 "@vecmat/eslint-config-vue@0.3.0":
-  version "0.0.1"
-  resolved "https://registry.npmjs.org/@vecmat/eslint-config-vue/-/eslint-config-vue-0.0.1.tgz#55bd04aa11cab73b1769085d2a5023473d65d51b"
-  integrity sha512-BhjLDzjDnj5FIwHCAGEfbNTAqMXcmB6vOf/qquoXXaewVaDl9o4usCOT3z0L+yO4SWwjBVrgbOH3oC+NOebRlw==
+  version "0.0.5"
+  resolved "https://registry.npmjs.org/@vecmat/eslint-config-vue/-/eslint-config-vue-0.0.5.tgz#6d55cf743aede72ad97350fa78e9caf35d661ae7"
+  integrity sha512-DSsOuJSuyScmtHt+33TTbRMY1tYxfM9roHbah3Xp7CNaBtXiEwpFZVSY2fteZ8SDlpj9/8H50SJyI7zNZJiNaA==
   dependencies:
-    "@vecmat/eslint-config-ts" "0.3.0"
+    "@vecmat/eslint-config-ts" "^0.0.1"
     eslint-plugin-vue "7.20.0"
 
 "@vecmat/eslint-config@^0.0.3":

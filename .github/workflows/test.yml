@@ -1,43 +1,43 @@
 name: Test
 
 on:
-  push:
-  pull_request:
+    push:
+    pull_request:
 
 jobs:
-  test:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-        node: [12, 14, 16]
-        
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
+    test:
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest, windows-latest]
+                node: [12, 14, 16]
 
-      - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node }}
-          registry-url: https://registry.npmjs.org/
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v2
 
-      - name: Setup cache
-        uses: actions/cache@v2
-        id: pnpm-cache
-        with:
-          path: ${{ (runner.os == 'Windows' && 'D:\.pnpm-store') || '~/.pnpm-store' }}
-          key: ${{ runner.os }}-${{ matrix.node }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.node }}-pnpm-
+            - name: Use Node.js ${{ matrix.node }}
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node }}
+                  registry-url: https://registry.npmjs.org/
 
-      - name: Install dependencies
-        run: |
-          npm i -g pnpm @antfu/ni
-          nci
+            - name: Setup cache
+              uses: actions/cache@v2
+              id: pnpm-cache
+              with:
+                  path: ${{ (runner.os == 'Windows' && 'D:\.pnpm-store') || '~/.pnpm-store' }}
+                  key: ${{ runner.os }}-${{ matrix.node }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-${{ matrix.node }}-pnpm-
 
-      - name: Run test
-        run: nr test --if-present
+            - name: Install dependencies
+              run: |
+                  npm i -g pnpm @antfu/ni
+                  nci
 
-      - name: Run build
-        run: nr build
+            - name: Run test
+              run: nr test --if-present
+
+            - name: Run build
+              run: nr build
