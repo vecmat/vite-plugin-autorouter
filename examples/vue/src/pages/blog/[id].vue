@@ -8,12 +8,10 @@ defineProps({
 <template>
   blog/[id].vue: {{ id }}
 </template>
-
-<route>
-{
-  meta: {
-    requiresAuth: false,
-  },
-  name: 'name-overrid',
-}
+<route lang="toml">
+name ='blog'
+layout= true
+path = '/:id'
+[meta]
+requiresAuth=true
 </route>

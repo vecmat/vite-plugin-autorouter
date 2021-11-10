@@ -1,3 +1,8 @@
+
+<route lang='toml'>
+name= "index"
+</route>
+
 <template>
   <div>
     <p>index.vue</p>
@@ -28,9 +33,3 @@
   </div>
 </template>
 
-<route>
-{
-  name: "name-override",
-  meta: {requiresAuth: false}
-}
-</route>

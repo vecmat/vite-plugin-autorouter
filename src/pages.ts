@@ -68,9 +68,15 @@ async function setPage(pages: ResolvedPages, pageDir: PageDirOptions, file: stri
     });
 }
 
+// 根据 '/' 数量排序
+// todo 根据 sort 排序， 
+// 正则匹配优先级更高
+// layout 优先级更好
+// 未考虑正则问题！
 function countSlash(value: string) {
     return (value.match(/\//g) || []).length;
 }
+
 
 export function sortPages(pages: ResolvedPages) {
     return (

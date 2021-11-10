@@ -2,22 +2,25 @@ export type ImportMode = "sync" | "async";
 export type ImportModeResolveFn = (filepath: string) => ImportMode;
 
 export interface Route {
-    name?: string;
     path: string;
+    name?: string;
     props?: boolean | Record<string, any> | ((to: any) => Record<string, any>);
     component: string;
-    children?: Route[];
-    routes?: Route[];
     exact?: boolean;
+    routes?: Route[];
+    beforeEnter?: any;
+    children?: Route[];
+    childdir?: string[];
     meta?: Record<string, unknown>;
     customBlock?: Record<string, any> | null;
-    beforeEnter?: any;
 }
+
+
+
 export interface PageDirOptions {
     dir: string;
     baseRoute: string;
 }
-
 /**
  * Plugin options.
  */

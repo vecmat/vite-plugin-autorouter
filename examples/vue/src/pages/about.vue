@@ -3,7 +3,6 @@
   <router-view />
 </template>
 
-<route lang="yml">
-meta:
-  lang: yml
+<route lang="toml">
+name="test"
 </route>

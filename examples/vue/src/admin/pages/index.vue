@@ -1,9 +1,14 @@
-<template>
-  <p>/admin/index.vue</p>
-  <p>located in features /admin/pages folder</p>
+<route lang="json">
+{
+}
+</route>
+
+<template lang="pug">
+p /admin/index.vue
+p located in features /admin/pages folder
 </template>
 
-<script>
+<script lang="ts">
 export default {
 
 }
@@ -12,10 +17,3 @@ export default {
 <style>
 
 </style>
-<route>
-{
-meta: {
-  requiresAuth: false
-}
-}
-</route>

@@ -7,3 +7,10 @@
     today
   </router-link>
 </template>
+<route lang="toml">
+name ='current'
+layout= true
+path = '/'
+[meta]
+requiresAuth=true
+</route>

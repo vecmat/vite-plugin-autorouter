@@ -18,7 +18,7 @@ export function getPageDirs(pageDirOptions: PageDirOptions, root: string, exclud
         cwd: root,
     });
 
-    const pageDirs = dirs.map(dir => ({
+    const pageDirs = dirs.map((dir) => ({
         ...pageDirOptions,
         dir,
     }));
@@ -30,10 +30,7 @@ export function getPageDirs(pageDirOptions: PageDirOptions, root: string, exclud
  * Resolves the files that are valid pages for the given context.
  */
 export function getPageFiles(path: string, options: ResolvedOptions): string[] {
-    const {
-        exclude,
-        extensions,
-    } = options;
+    const { exclude, extensions } = options;
 
     const ext = extensionsToGlob(extensions);
 

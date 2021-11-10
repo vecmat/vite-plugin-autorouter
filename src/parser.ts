@@ -19,7 +19,6 @@ export async function parseSFC(code: string): Promise<SFCDescriptor> {
 
 export function parseCustomBlock(block: SFCBlock, filePath: string, options: ResolvedOptions): any {
     const lang = block.lang ?? options.routeBlockLang;
-
     if (lang === "json5") {
         try {
             return JSON5.parse(block.content);
