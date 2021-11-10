@@ -1,5 +1,5 @@
 import fg from "fast-glob";
-import { PageDirOptions, ResolvedOptions } from "./types";
+import {  ResolvedOptions } from "./types";
 import { extensionsToGlob } from "./utils";
 
 function getIgnore(exclude: string[]) {
@@ -9,8 +9,8 @@ function getIgnore(exclude: string[]) {
 /**
  * Resolves the page dirs for its for its given globs
  */
-export function getPageDirs(pageDirOptions: PageDirOptions, root: string, exclude: string[]): PageDirOptions[] {
-    const dirs = fg.sync(pageDirOptions.dir, {
+export function getPageDirs(pageDirOptions: string, root: string, exclude: string[]): string[] {
+    const dirs = fg.sync(pageDirOptions, {
         ignore: getIgnore(exclude),
         onlyDirectories: true,
         dot: true,
@@ -18,12 +18,7 @@ export function getPageDirs(pageDirOptions: PageDirOptions, root: string, exclud
         cwd: root,
     });
 
-    const pageDirs = dirs.map((dir) => ({
-        ...pageDirOptions,
-        dir,
-    }));
-
-    return pageDirs;
+    return dirs;
 }
 
 /**

@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import reactRefresh from "@vitejs/plugin-react-refresh";
-import Auto from "vite-plugin-autorouter";
+import Auto from "../../dist";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -8,8 +8,8 @@ export default defineConfig({
         reactRefresh(),
         Auto({
             pagesDir: [
-                { dir: "src/pages", baseRoute: "" },
-                { dir: "src/features/admin/pages", baseRoute: "admin" },
+                "src/pages",
+                "src/features/admin/pages"
             ],
             extensions: ["tsx"],
             react: true,

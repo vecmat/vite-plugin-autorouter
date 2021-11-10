@@ -1,7 +1,7 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
 import Vue from "@vitejs/plugin-vue";
-import Auto from "vite-plugin-autorouter";
+import Auto from "../../dist";
 
 const config = defineConfig({
     plugins: [
@@ -11,17 +11,19 @@ const config = defineConfig({
         Auto({
             // pagesDir: ['src/pages', 'src/pages2'],
             pagesDir: [
-                // issue #68
-                { dir: resolve(__dirname, "./src/pages"), baseRoute: "" },
-                { dir: "src/features/**/pages", baseRoute: "features" },
-                { dir: "src/admin/pages", baseRoute: "admin" },
+                "src/admin/pages",
+                "src/features/**/pages",
+                resolve(__dirname, "./src/pages"),
             ],
             extensions: ["vue", "md"],
             syncIndex: true,
             replaceSquareBrackets: true,
-            extendRoute(route) {
-                if (route.name === "about") route.props = (route) => ({ query: route.query.q });
-
+            extendRoute(route:any) {
+                if (route.name === "about") {
+                    route.props = (route:any) => ({ 
+                        query: route.query.q 
+                    });
+                }
                 if (route.name === "components") {
                     return {
                         ...route,

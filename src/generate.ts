@@ -12,6 +12,11 @@ import { isDynamicRoute, isCatchAllRoute } from "./utils";
 import { stringifyRoutes } from "./stringify";
 import { sortPages } from "./pages";
 
+export function generateClientCode(routes: Route[], options: ResolvedOptions) {
+    const { imports, stringRoutes } = stringifyRoutes(routes, options);
+    return `${imports.join(";\n")};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`;
+}
+
 //
 function prepareRoutes(routes: Route[], options: ResolvedOptions, parent?: Route) {
     for (const route of routes) {
@@ -29,7 +34,7 @@ function prepareRoutes(routes: Route[], options: ResolvedOptions, parent?: Route
         }
 
         if (route.children) {
-            delete route.name;
+            delete route.name; //! ? 
             route.children = prepareRoutes(route.children, options, route);
         }
 
@@ -43,10 +48,7 @@ function prepareRoutes(routes: Route[], options: ResolvedOptions, parent?: Route
     return routes;
 }
 
-export function generateClientCode(routes: Route[], options: ResolvedOptions) {
-    const { imports, stringRoutes } = stringifyRoutes(routes, options);
-    return `${imports.join(";\n")};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`;
-}
+
 
 export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): Route[] {
     const { nuxtStyle } = options;
@@ -59,9 +61,10 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
 
     sortPages(pages).forEach((page) => {
         const pathNodes = page.route.split("/");
+        console.log(page)
 
         // add leading slash to component path if not already there
-        const component = page.component.startsWith("/") ? page.component : `/${page.component}`;
+        const component = page.component.replace(/^([^\/])/,"/$1")
 
         const route: Route = {
             name: "",
@@ -110,6 +113,7 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
         parentRoutes.push(route);
     });
 
+    // 
     const preparedRoutes = prepareRoutes(routes, options);
 
     let finalRoutes = preparedRoutes.sort((a, b) => {

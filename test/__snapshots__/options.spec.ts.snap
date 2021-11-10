@@ -13,11 +13,8 @@ Object {
   "nuxtStyle": false,
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
-  "pagesDir": Array [
-    Object {
-      "baseRoute": "",
-      "dir": "test/assets/pages",
-    },
+  "pagesDir": Array [ 
+    "test/assets/pages",
   ],
   "react": true,
   "replaceSquareBrackets": false,
@@ -42,10 +39,7 @@ Object {
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
   "pagesDir": Array [
-    Object {
-      "baseRoute": "",
-      "dir": "test/assets/pages",
-    },
+    "test/assets/pages",
   ],
   "react": false,
   "replaceSquareBrackets": false,

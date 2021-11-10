@@ -46,14 +46,16 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
             return clientCode;
         },
         async transform(_code, id) {
-            if (!/vue&type=route/.test(id)) return;
+            if (!/vue&type=route/.test(id)) 
+                return;
             return {
                 code: "export default {};",
                 map: null,
             };
         },
         generateBundle(_options, bundle) {
-            if (options.replaceSquareBrackets) replaceSquareBrackets(bundle);
+            if (options.replaceSquareBrackets) 
+                replaceSquareBrackets(bundle);
         },
     };
 }

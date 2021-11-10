@@ -121,7 +121,7 @@ export default {
 
 ### pagesDir
 
--   **Type:** `string | (string | PageDirOptions)[]`
+-   **Type:** `string | string[]`
 -   **Default:** `'src/pages'`
 
 Relative path to the pages directory. Supports globs.
@@ -130,11 +130,7 @@ Can be:
 
 -   single path: routes point to `/`
 -   array of paths: all routes in the paths point to `/`
--   array of `PageDirOptions`, Check below 👇
 
-Specifying a glob or an array of `PageDirOptions` allow you to use multiple
-pages folder, and specify the base route to append to the path and the route
-name.
 
 **Example:**
 
@@ -159,9 +155,9 @@ export default {
     plugins: [
         Auto({
             pagesDir: [
-                { dir: "src/pages", baseRoute: "" },
-                { dir: "src/features/**/pages", baseRoute: "features" },
-                { dir: "src/admin/pages", baseRoute: "admin" },
+                { dir: "src/pages" },
+                { dir: "src/admin/pages" },
+                { dir: "src/features/**/pages" },
             ],
         }),
     ],

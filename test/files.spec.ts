@@ -16,11 +16,8 @@ describe('Get files', () => {
 
 describe('Get page dirs', () => {
   test('With glob', async() => {
-    const pageDirOptions = {
-      dir: slash(join(testDeepPagesDir, '**', 'pages')),
-      baseRoute: '',
-    }
-    const dirs = getPageDirs(pageDirOptions, options.root, options.exclude)
+    const dir = slash(join(testDeepPagesDir, '**', 'pages'))
+    const dirs = getPageDirs(dir, options.root, options.exclude)
     expect(dirs.sort()).toMatchSnapshot('glob dirs')
   })
 })

@@ -15,12 +15,6 @@ export interface Route {
     customBlock?: Record<string, any> | null;
 }
 
-
-
-export interface PageDirOptions {
-    dir: string;
-    baseRoute: string;
-}
 /**
  * Plugin options.
  */
@@ -29,7 +23,7 @@ interface Options {
      * Relative path to the directory to search for page components.
      * @default 'src/pages'
      */
-    pagesDir: string | (string | PageDirOptions)[];
+    pagesDir: string[];
     /**
      * Valid file extensions for page components.
      * @default ['vue', 'js']
@@ -87,10 +81,12 @@ interface Options {
 export type UserOptions = Partial<Options>;
 
 export interface ResolvedPage {
+    file:string;
     dir: string;
+    base:string;
     route: string;
-    extension: string;
     filepath: string;
+    extension: string;
     component: string;
     customBlock: Record<string, any> | null;
 }
@@ -107,5 +103,5 @@ export interface ResolvedOptions extends Options {
      * RegExp to match extensions
      */
     extensionsRE: RegExp;
-    pagesDir: PageDirOptions[];
+    pagesDir: string[];
 }

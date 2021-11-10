@@ -1,6 +1,9 @@
-<route lang="json">
-{
-}
+<route lang="toml">
+name ='user'
+layout= true
+path = '/admin'
+[meta]
+requiresAuth=true
 </route>
 
 <template lang="pug">

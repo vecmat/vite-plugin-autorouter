@@ -11,12 +11,10 @@ const config = defineConfig({
       include: [/\.vue$/, /\.md$/],
     }),
     Auto({
-      // pagesDir: ['src/pages', 'src/pages2'],
       pagesDir: [
-        // issue #68
-        { dir: resolve(__dirname, "./src/pages"), baseRoute: "" },
-        { dir: "src/features/**/pages", baseRoute: "features" },
-        { dir: "src/admin/pages", baseRoute: "admin" },
+        "src/admin/pages",
+        // "src/features/**/pages",
+        // resolve(__dirname, "./src/pages"),
       ],
       extensions: ["vue", "md"],
       syncIndex: true,

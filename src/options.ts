@@ -3,15 +3,11 @@ import { UserOptions, ResolvedOptions } from "./types";
 import { getPageDirs } from "./files";
 import { toArray, slash } from "./utils";
 
-function resolvePageDirs(pagesDir: UserOptions["pagesDir"], root: string, exclude: string[]) {
+function resolvePageDirs(pagesDir: string[], root: string, exclude: string[]) {
     pagesDir = toArray(pagesDir);
     return pagesDir.flatMap((pagesDir) => {
-        const option = typeof pagesDir === "string" ? { dir: pagesDir, baseRoute: "" } : pagesDir;
-
-        option.dir = slash(resolve(root, option.dir)).replace(`${root}/`, "");
-        option.baseRoute = option.baseRoute.replace(/^\//, "").replace(/\/$/, "");
-
-        return getPageDirs(option, root, exclude);
+        pagesDir = slash(resolve(root, pagesDir)).replace(`${root}/`, "");
+        return getPageDirs(pagesDir, root, exclude);
     });
 }
 

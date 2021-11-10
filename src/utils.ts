@@ -19,7 +19,7 @@ export function extensionsToGlob(extensions: string[]) {
 
 function isPagesDir(path: string, options: ResolvedOptions) {
     for (const page of options.pagesDir) {
-        const dirPath = slash(resolve(options.root, page.dir));
+        const dirPath = slash(resolve(options.root, page));
         if (path.startsWith(dirPath)) return true;
     }
     return false;
@@ -36,6 +36,7 @@ export const debug = {
     options: Debug("vite-plugin-autorouter:options"),
     cache: Debug("vite-plugin-autorouter:cache"),
     pages: Debug("vite-plugin-autorouter:pages"),
+    
 };
 
 const dynamicRouteRE = /^\[.+\]$/;
@@ -54,7 +55,7 @@ export function resolveImportMode(filepath: string, options: ResolvedOptions) {
     if (typeof mode === "function") return mode(filepath);
 
     for (const pageDir of options.pagesDir) {
-        if (options.syncIndex && pageDir.baseRoute === "" && filepath === `/${pageDir.dir}/index.vue`) 
+        if (options.syncIndex && pageDir === "" && filepath === `/${pageDir}/index.vue`) 
             return "sync";
     }
     return mode;
@@ -82,7 +83,7 @@ export async function getRouteBlock(path: string, options: ResolvedOptions) {
 
     const blockStr = parsed.customBlocks.find((b) => b.type === "route");
     if (!blockStr) return null;
-
+    // !!!
     const result: Record<string, any> = parseCustomBlock(blockStr, path, options);
     debug.parser("%s: %O", path, result);
     routeBlockCache.set(slash(path), result);
