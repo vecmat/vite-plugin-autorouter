@@ -1,6 +1,6 @@
 <route lang="toml">
-name ='index'
-path = '/'
+name ='zzz'
+path = '/:all'
 
 </route>
 
@@ -11,10 +11,13 @@ p located in features /admin/pages asdfasdfasd
 </template>
 
 
-<script lang="ts">
-export default {
 
-}
+
+<script lang="ts" setup>
+defineProps({
+  all: String,
+})
+
 </script>
 
 <style>

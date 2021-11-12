@@ -31,18 +31,17 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
         },
         async load(id) {
             if (id !== MODULE_ID_VIRTUAL) return;
-
             if (!generatedRoutes) {
                 generatedRoutes = [];
                 generatedRoutes = generateRoutes(pages, options);
+                // console.log(generatedRoutes)
                 generatedRoutes = (await options.onRoutesGenerated?.(generatedRoutes)) || generatedRoutes;
             }
             debug.gen("routes: %O", generatedRoutes);
-
             let clientCode = generateClientCode(generatedRoutes, options);
             clientCode = (await options.onClientGenerated?.(clientCode)) || clientCode;
             // debug.gen('client code: %O', clientCode)
-
+           
             return clientCode;
         },
         async transform(_code, id) {

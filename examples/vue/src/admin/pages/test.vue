@@ -1,15 +1,12 @@
 <route lang="toml">
-name ='index'
-path = '/'
-
+name ='test'
+path ='/test'
 </route>
 
 <template lang="pug">
-p /admin/index.vue
-p located in features /admin/pages asdfasdfasd 
-
+p /test
+router-view
 </template>
-
 
 <script lang="ts">
 export default {

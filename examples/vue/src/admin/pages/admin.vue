@@ -1,6 +1,6 @@
 <route lang="toml">
-name ='index'
-path = '/'
+name ='admin'
+path = '/admin'
 
 </route>
 
@@ -9,7 +9,6 @@ p /admin/index.vue
 p located in features /admin/pages asdfasdfasd 
 
 </template>
-
 
 <script lang="ts">
 export default {

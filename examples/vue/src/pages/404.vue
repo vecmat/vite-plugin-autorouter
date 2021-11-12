@@ -1,8 +1,9 @@
-<template>
-  <div>...all route</div>
-</template>
-<config lang="toml">
+<route lang="toml">
 name ='404'
 order = 0
 path = '/:any'
-</config>
+</route>
+
+<template>
+  <div>...all route</div>
+</template>

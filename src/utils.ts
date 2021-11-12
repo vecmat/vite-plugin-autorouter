@@ -39,6 +39,7 @@ export const debug = {
     
 };
 
+// nuxt 采用_开头
 const dynamicRouteRE = /^\[.+\]$/;
 export const nuxtDynamicRouteRE = /^_[\s\S]*$/;
 
@@ -46,6 +47,7 @@ export function isDynamicRoute(routePath: string, nuxtStyle: Boolean = false) {
     return nuxtStyle ? nuxtDynamicRouteRE.test(routePath) : dynamicRouteRE.test(routePath);
 }
 
+//  "_"  /  "[...]"
 export function isCatchAllRoute(routePath: string, nuxtStyle: Boolean = false) {
     return nuxtStyle ? /^_$/.test(routePath) : /^\[\.{3}/.test(routePath);
 }

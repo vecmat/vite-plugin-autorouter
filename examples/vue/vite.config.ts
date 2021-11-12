@@ -12,7 +12,7 @@ const config = defineConfig({
     }),
     Auto({
       pagesDir: [
-        "src/admin/pages",
+        "src/admin/pages/",
         // "src/features/**/pages",
         // resolve(__dirname, "./src/pages"),
       ],
@@ -27,7 +27,7 @@ const config = defineConfig({
             ...route,
             beforeEnter: (route:any) => {
               // eslint-disable-next-line no-console
-              console.log(route)
+                console.log(route)
             },
           }
         }
@@ -35,7 +35,7 @@ const config = defineConfig({
     }),
     Markdown(),
     Restart({
-      restart: ["../../dist/*.js"],
+      restart: ["../../dist/"],
     }),
   ],
 })

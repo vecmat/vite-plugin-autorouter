@@ -1,15 +1,11 @@
 <route lang="toml">
-name ='index'
-path = '/'
-
+name ='three'
+path ='/three'
 </route>
 
 <template lang="pug">
-p /admin/index.vue
-p located in features /admin/pages asdfasdfasd 
-
+p /test/toto/three
 </template>
-
 
 <script lang="ts">
 export default {
