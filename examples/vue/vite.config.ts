@@ -3,7 +3,7 @@ import { defineConfig } from "vite"
 import Vue from "@vitejs/plugin-vue"
 import Markdown from "vite-plugin-md"
 import Restart from "vite-plugin-restart"
-import Auto from "../../dist/index"
+import Auto from "../../dist/"
 
 const config = defineConfig({
   plugins: [
@@ -19,8 +19,8 @@ const config = defineConfig({
       extensions: ["vue", "md"],
       syncIndex: true,
       replaceSquareBrackets: true,
-      extendRoute(route) {
-        if (route.name === "about") route.props = route => ({ query: route.query.q })
+      extendRoute(route:any) {
+        if (route.name === "about") route.props = (route:any) => ({ query: route.query.q })
 
         if (route.name === "components") {
           return {

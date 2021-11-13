@@ -38,10 +38,11 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
                 generatedRoutes = (await options.onRoutesGenerated?.(generatedRoutes)) || generatedRoutes;
             }
             debug.gen("routes: %O", generatedRoutes);
+            console.log(generatedRoutes)
             let clientCode = generateClientCode(generatedRoutes, options);
             clientCode = (await options.onClientGenerated?.(clientCode)) || clientCode;
             // debug.gen('client code: %O', clientCode)
-           
+         
             return clientCode;
         },
         async transform(_code, id) {

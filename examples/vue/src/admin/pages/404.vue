@@ -1,12 +1,11 @@
 <route lang="toml">
 name ='zzz'
-path = '/:all'
+path = '[...]'
 
 </route>
 
 <template lang="pug">
-p /admin/index.vue
-p located in features /admin/pages asdfasdfasd 
+p 404 page {{pathMatch?.join("/")}}
 
 </template>
 
@@ -15,7 +14,7 @@ p located in features /admin/pages asdfasdfasd
 
 <script lang="ts" setup>
 defineProps({
-  all: String,
+  pathMatch: Array
 })
 
 </script>

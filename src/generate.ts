@@ -39,15 +39,14 @@ export function generateClientCode(routes: Route[], options: ResolvedOptions) {
 
 // 
 function prepareRoutes(routes: Route[], options: ResolvedOptions, parent?: Route) {
-    
 
     for (const route of routes) {
         route.name = route.name || ""
         route.name = route.name.replace(/-index$/, "");
 
-        // route.path = route.path || ""
-        // route.path = route.path.replace(/^\//, "");
-
+        route.path = route.path || "/"
+        route.path = route.path.replace(/^\/\//, "/");
+        
         if (!options.react) 
             route.props = true;
         if (options.react) {
@@ -59,17 +58,17 @@ function prepareRoutes(routes: Route[], options: ResolvedOptions, parent?: Route
 
         // todo 不用子目录形式
         if (route.children) {
-            delete route.name; // ! ? 
+            // delete route.name; // ! ? 
             route.children = prepareRoutes(route.children, options, route);
         }
         delete route.customBlock?.path
-        delete route.customBlock?.name
-
-        if (!options.react) Object.assign(route, route.customBlock || {});
-
-        delete route.customBlock;
+        // delete route.customBlock?.name
+        if (!options.react) {
+            Object.assign(route, route.customBlock || {});
+        }
 
         Object.assign(route, options.extendRoute?.(route, parent) || {});
+        delete route.customBlock;
     }
     return routes;
 }
@@ -83,10 +82,8 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
     // 先构建layout
     // 配置可省略，则layout可指定children目录
 
-    console.log("====>>>")
     // 再构建页面
     const sortpages = sortBySlash(pages)
-
     sortpages.forEach((page) => {
         
         const pathNodes = page.route.split("/");
@@ -117,7 +114,7 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
                     : node.replace(/^\[(\.{3})?/, "ALL").replace(/\]$/, "")
                 : node;
             
-              
+            
             const normalizedPath = normalizedName.toLowerCase();
             route.name += route.name ? `-${normalizedName}` : normalizedName;
             
@@ -137,7 +134,7 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
             } else if (normalizedName.toLowerCase() !== "index") {
                 if (isDynamic) {
                     if (isCatchAll) {
-                        route.path += "/(.*)*";
+                        route.path += "/:pathMatch(.*)*";
                     }else{
                         route.path += `/${normalizedName}`;
                     }
@@ -150,9 +147,7 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
         }
         parentRoutes.push(route);
     });
-    // 
     const preparedRoutes = prepareRoutes(routes, options);
-    console.log(routes)
    
   
     // 路由排序（正则）
@@ -171,6 +166,6 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
         finalRoutes = finalRoutes.filter((i) => !isCatchAllRoute(parse(i.component).name, nuxtStyle));
         finalRoutes.push(allRoute);
     }
-    // console.log(finalRoutes)
+    console.log(finalRoutes)
     return finalRoutes;
 }
