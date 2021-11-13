@@ -11,23 +11,30 @@ import { stringifyRoutes } from "./stringify";
 import { isDynamicRoute, isCatchAllRoute } from "./utils";
 import { Route, ResolvedOptions, ResolvedPages } from "./types";
 
-// 根据 '/' 数量排序
-// todo 根据 sort 排序， 
-// 正则匹配优先级更高
-// layout 优先级更好
-// 未考虑正则问题！
+
 function countSlash(value: string) {
     return (value.match(/\//g) || []).length;
 }
 
 // "/" 越少排在前面，多的排后面
+// 根据 '/' 数量排序
+// todo 根据 sort 排序， 
+// 正则匹配优先级更高
+// layout 优先级更好
+// 未考虑正则问题！
 export function sortBySlash(pages: ResolvedPages) {
     return (
         [...pages]
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             .map(([_, value]) => value)
             .sort((a, b) => {
-                return countSlash(a.route) - countSlash(b.route);
+                let slasha =  countSlash(a.path) ;
+                let slashb =  countSlash(b.path) ;
+                if(slasha!= slashb){
+                    return  countSlash(a.path) - countSlash(b.path);
+                }else {
+                    return  a.path.length - b.path.length
+                }
             })
     );
 }
@@ -37,16 +44,14 @@ export function generateClientCode(routes: Route[], options: ResolvedOptions) {
     return `${imports.join(";\n")};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`;
 }
 
-// 
+// 最终格式化处理
 function prepareRoutes(routes: Route[], options: ResolvedOptions, parent?: Route) {
-
     for (const route of routes) {
         route.name = route.name || ""
         route.name = route.name.replace(/-index$/, "");
 
         route.path = route.path || "/"
-        route.path = route.path.replace(/^\/\//, "/");
-        
+        // route.path = route.path.replace(/^\/\//, "/");
         if (!options.react) 
             route.props = true;
         if (options.react) {
@@ -55,20 +60,18 @@ function prepareRoutes(routes: Route[], options: ResolvedOptions, parent?: Route
             delete route.children;
             route.exact = true;
         }
-
-        // todo 不用子目录形式
         if (route.children) {
-            // delete route.name; // ! ? 
+            delete route.name; // ! ? 
             route.children = prepareRoutes(route.children, options, route);
         }
-        delete route.customBlock?.path
+      
         // delete route.customBlock?.name
-        if (!options.react) {
-            Object.assign(route, route.customBlock || {});
-        }
-
+        // if (!options.react) {
+        //     Object.assign(route, route.customBlock || {});
+        // }
+        // extend route handle
         Object.assign(route, options.extendRoute?.(route, parent) || {});
-        delete route.customBlock;
+      
     }
     return routes;
 }
@@ -81,28 +84,26 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
     const routes: Route[] = [];
     // 先构建layout
     // 配置可省略，则layout可指定children目录
-
-    // 再构建页面
     const sortpages = sortBySlash(pages)
     sortpages.forEach((page) => {
-        
-        const pathNodes = page.route.split("/");
+        const {name,path,customBlock } = page
+        const stratum = page.path.replace(/^\//,"").split("/");
         // add leading slash to component path if not already there
         const component = page.component.replace(/^([^\/])/,"/$1")
+
         const route: Route = {
-            name: "",
+            name: name,
             path: "",
             component,
-            customBlock: page.customBlock,
         };
 
         let parentRoutes = routes;
-        for (let i = 0; i < pathNodes.length; i++) {
-            const node = pathNodes[i];
+        for (let i = 0; i < stratum.length; i++) {
+            const node = stratum[i];
             if(node ===""){
+                
                 continue
             }
-            
             const isDynamic = isDynamicRoute(node, nuxtStyle);
             const isCatchAll = isCatchAllRoute(node, nuxtStyle);
            
@@ -116,13 +117,12 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
             
             
             const normalizedPath = normalizedName.toLowerCase();
-            route.name += route.name ? `-${normalizedName}` : normalizedName;
-            
+            route.path = normalizedPath
             // todo 通过配置
             // 路径相同默认为子路由
             // 不应该通过name识别，重名如何解决？
             const parent = parentRoutes.find((node) => {
-                return node.name === route.name
+                return  route.path.startsWith(node.path )
             });
            
             if (parent) {

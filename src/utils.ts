@@ -84,12 +84,11 @@ export async function getRouteBlock(path: string, options: ResolvedOptions) {
     const parsed = await parseSFC(content);
 
     const blockStr = parsed.customBlocks.find((b) => b.type === "route");
-    if (!blockStr) return null;
+    if (!blockStr) return {};
     // !!!
     const result: Record<string, any> = parseCustomBlock(blockStr, path, options);
     debug.parser("%s: %O", path, result);
     routeBlockCache.set(slash(path), result);
-
     return result;
 }
 

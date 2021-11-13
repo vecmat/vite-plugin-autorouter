@@ -1,32 +1,33 @@
-import { join, extname, resolve } from "path";
-import {  ResolvedOptions, ResolvedPages, ResolvedPage } from "./types";
 import { getPageFiles } from "./files";
+import { join, extname, resolve ,basename} from "path";
+import {  ResolvedOptions, ResolvedPages, ResolvedPage } from "./types";
 import { getRouteBlock, routeBlockCache, toArray, slash } from "./utils";
 
-export function removePage(pages: ResolvedPages, file: string) {
-    pages.delete(file);
-}
+// 只负责生成一个MAP对象
 
-export function updatePage(pages: ResolvedPages, file: string) {
-    const page = pages.get(file);
-    if (page) {
-        const customBlock = routeBlockCache.get(file) || null;
-        page.customBlock = customBlock;
-        pages.set(file, page);
+async function setPage(pages: ResolvedPages, file: string, options: ResolvedOptions) {
+    const extension = extname(file).slice(1);
+    const filepath = slash(resolve(options.root, file));
+    const filename = basename(file).replace(options.extensionsRE, "");
+
+    let page : ResolvedPage = { 
+        component :file,
+        name:`${filename}` ,
+        path:`/${filename}` , 
+     } ;
+    // 解析数据
+    let block : Record<string, any> =  {};
+    if(["vue", "md"].includes(extension)){
+        block = await getRouteBlock(filepath, options)
     }
-}
-
-export async function addPage(pages: ResolvedPages, file: string, options: ResolvedOptions) {
-    file = file.replace(options.root, "");
-    const pageDir = options.pagesDir.find((i) => file.startsWith(`/${i}`));
-    if (!pageDir) return;
-
-    await setPage(pages, pageDir, file.replace(`/${pageDir}/`, ""), options);
+    Object.assign(page,block)
+    pages.set(file,page);
 }
 
 export async function resolvePages(options: ResolvedOptions) {
     const dirs = toArray(options.pagesDir);
     const pages = new Map<string, ResolvedPage>();
+
     const pageDirFiles = dirs.map((dir) => {
         const pagePath = slash(resolve(options.root, dir));
         return {
@@ -34,44 +35,38 @@ export async function resolvePages(options: ResolvedOptions) {
             files: getPageFiles(pagePath, options),
         };
     });
-    
     for (const row of pageDirFiles) {
-        for (const file of row.files) 
-            await setPage(pages, row.dir, file, options);
-    }
-
-    const routes: string[] = [];
-    // 重复性检测 ？
-    for (const page of pages.values()) {
-        if (!routes.includes(page.route)) 
-            routes.push(page.route);
-        else {
-            // console.log(routes)
-            throw new Error(`[vite-plugin-autorouter] duplicate route in ${page.filepath}`);
+        for (const file of row.files) {
+            console.log(file)
+            await setPage(pages, join(row.dir , file), options);
         }
+
     }
     return pages;
 }
 
-async function setPage(pages: ResolvedPages, dist: string, file: string, options: ResolvedOptions) {
-    const component = slash(join(dist, file));
-    const filepath = slash(resolve(options.root, component));
-    const extension = extname(file).slice(1);
-    // 解析数据
-    const customBlock = ["vue", "md"].includes(extension) ? await getRouteBlock(filepath, options) : null;
-    const base = customBlock?.base  || "";
-    // 默认是文件名
-    const route =  customBlock?.path ||  file.replace(options.extensionsRE, "")
-    // 保存变量
-    pages.set(filepath, {
-        file:file,
-        base:base,
-        dir: dist,
-        route: route,
-        extension,
-        filepath,
-        component,
-        customBlock,
+export async function addPage(pages: ResolvedPages, file: string, options: ResolvedOptions) {
+    file = file.replace(options.root, "");
+    const pageDir = options.pagesDir.find((i) => {
+        file.startsWith(`/${i}`)
     });
+    if (!pageDir) return;
+    console.log(file,pageDir)
+    await setPage(pages, file ,options);
+}
+
+export async function updatePage(pages: ResolvedPages, file: string , options: ResolvedOptions ) {
+    const page = pages.get(file);
+    if (page) {
+        console.log(file,options)
+        const customBlock = routeBlockCache.get(file) || null;
+        page.customBlock = customBlock;
+        pages.set(file, page);
+        
+    }
+}
+
+export function removePage(pages: ResolvedPages, file: string) {
+    pages.delete(file);
 }
 

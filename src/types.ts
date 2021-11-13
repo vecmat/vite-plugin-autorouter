@@ -1,6 +1,15 @@
 export type ImportMode = "sync" | "async";
 export type ImportModeResolveFn = (filepath: string) => ImportMode;
 
+
+export interface ResolvedPage extends Record<string, any> {
+    path: string;
+    name: string;
+    component: string;
+}
+export type ResolvedPages = Map<string, ResolvedPage>;
+
+
 export interface Route {
     path: string;
     name?: string;
@@ -12,13 +21,20 @@ export interface Route {
     children?: Route[];
     childdir?: string[];
     meta?: Record<string, unknown>;
-    customBlock?: Record<string, any> | null;
 }
+
+
+export interface ResolvedOptions extends Options {
+    root: string;
+    pagesDir: string[];
+    extensionsRE: RegExp;
+}
+
 
 /**
  * Plugin options.
  */
-interface Options {
+ interface Options {
     /**
      * Relative path to the directory to search for page components.
      * @default 'src/pages'
@@ -79,29 +95,3 @@ interface Options {
 }
 
 export type UserOptions = Partial<Options>;
-
-export interface ResolvedPage {
-    file:string;
-    dir: string;
-    base:string;
-    route: string;
-    filepath: string;
-    extension: string;
-    component: string;
-    customBlock: Record<string, any> | null;
-}
-
-export type ResolvedPages = Map<string, ResolvedPage>;
-
-export interface ResolvedOptions extends Options {
-    /**
-     * Resolves to the `root` value from Vite config.
-     * @default config.root
-     */
-    root: string;
-    /**
-     * RegExp to match extensions
-     */
-    extensionsRE: RegExp;
-    pagesDir: string[];
-}

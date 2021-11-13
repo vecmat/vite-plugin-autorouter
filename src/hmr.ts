@@ -7,7 +7,7 @@ export function handleHMR(server: ViteDevServer, pages: ResolvedPages, options: 
     const { ws, watcher, } = server;
 
     function fullReload() {
-    // invalidate module
+        // invalidate module
         getPagesVirtualModule(server);
         clearRoutes();
         ws.send({
@@ -15,29 +15,33 @@ export function handleHMR(server: ViteDevServer, pages: ResolvedPages, options: 
         });
     }
 
-    watcher.on("add", async(file) => {
-        const path = slash(file);
-        if (isTarget(path, options)) {
-            await addPage(pages, path, options);
-            debug.hmr("add", path);
+    watcher.on("add", async(path) => {
+        if(/(vue.md)$/.test(path)) return
+        const file =  path.replace(options.root, "");
+        if (isTarget(file, options)) {
+            await addPage(pages, file, options);
+            debug.hmr("add", file);
             fullReload();
         }
     });
-    watcher.on("unlink", (file) => {
-        const path = slash(file);
-        if (isTarget(path, options)) {
-            removePage(pages, path);
-            debug.hmr("remove", path);
+    watcher.on("unlink", (path) => {
+        if(/(vue.md)$/.test(path)) return
+        const file =  path.replace(options.root, "");
+        if (isTarget(file, options)) {
+            removePage(pages, file);
+            debug.hmr("remove", file);
             fullReload();
         }
     });
-    watcher.on("change", async(file) => {
-        const path = slash(file);
-        if (isTarget(path, options) && !options.react) {
-            const needReload = await isRouteBlockChanged(path, options);
+    watcher.on("change", async(path) => {
+        if(/(vue.md)$/.test(path)) return
+        const file =  path.replace(options.root, "");
+        console.log("-======>"+file)
+        if (isTarget(file, options) && !options.react) {
+            const needReload = await isRouteBlockChanged(file, options);
             if (needReload) {
-                updatePage(pages, path);
-                debug.hmr("change", path);
+                updatePage(pages, file, options);
+                debug.hmr("change", file);
                 fullReload();
             }
         }
