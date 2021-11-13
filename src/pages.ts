@@ -11,11 +11,10 @@ async function setPage(pages: ResolvedPages, file: string, options: ResolvedOpti
     const filename = basename(file).replace(options.extensionsRE, "");
 
     let page : ResolvedPage = { 
-        component :file,
         name:`${filename}` ,
         path:`/${filename}` , 
+        component : `/${file}`,
      } ;
-    // 解析数据
     let block : Record<string, any> =  {};
     if(["vue", "md"].includes(extension)){
         block = await getRouteBlock(filepath, options)
