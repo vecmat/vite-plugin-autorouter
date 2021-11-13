@@ -26,9 +26,7 @@ export async function addPage(pages: ResolvedPages, file: string, options: Resol
 
 export async function resolvePages(options: ResolvedOptions) {
     const dirs = toArray(options.pagesDir);
-  
     const pages = new Map<string, ResolvedPage>();
-
     const pageDirFiles = dirs.map((dir) => {
         const pagePath = slash(resolve(options.root, dir));
         return {
@@ -43,13 +41,12 @@ export async function resolvePages(options: ResolvedOptions) {
     }
 
     const routes: string[] = [];
-    // 过滤路由
+    // 重复性检测 ？
     for (const page of pages.values()) {
         if (!routes.includes(page.route)) 
             routes.push(page.route);
         else {
             // console.log(routes)
-            // console.log(page.route)
             throw new Error(`[vite-plugin-autorouter] duplicate route in ${page.filepath}`);
         }
     }

@@ -5,7 +5,7 @@ path = '[...]'
 </route>
 
 <template lang="pug">
-p 404 page {{pathMatch?.join("/")}}
+p 404 page {{captured?.join("/")}}
 
 </template>
 
@@ -14,7 +14,7 @@ p 404 page {{pathMatch?.join("/")}}
 
 <script lang="ts" setup>
 defineProps({
-  pathMatch: Array
+  captured: Array
 })
 
 </script>

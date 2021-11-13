@@ -134,7 +134,7 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
             } else if (normalizedName.toLowerCase() !== "index") {
                 if (isDynamic) {
                     if (isCatchAll) {
-                        route.path += "/:pathMatch(.*)*";
+                        route.path += "/:captured(.*)*";
                     }else{
                         route.path += `/${normalizedName}`;
                     }

@@ -15,19 +15,28 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
     return {
         name: "vite-plugin-autorouter",
         enforce: "pre",
-        async configResolved({ root }) {
-            options = resolveOptions(userOptions, root);
-            pages = await resolvePages(options);
-            debug.options(options);
-            debug.pages(pages);
+        async transform(_code, id) {
+            if (!/vue&type=route/.test(id)) 
+                return;
+            return {
+                code: "export default {};",
+                map: null,
+            };
+        },
+        generateBundle(_options, bundle) {
+            if (options.replaceSquareBrackets) 
+                replaceSquareBrackets(bundle);
         },
         configureServer(server) {
             handleHMR(server, pages, options, () => {
                 generatedRoutes = null;
             });
         },
-        resolveId(id) {
-            return MODULE_IDS.includes(id) || MODULE_IDS.some((i) => id.startsWith(i)) ? MODULE_ID_VIRTUAL : null;
+        async configResolved({ root }) {
+            options = resolveOptions(userOptions, root);
+            pages = await resolvePages(options);
+            debug.options(options);
+            debug.pages(pages);
         },
         async load(id) {
             if (id !== MODULE_ID_VIRTUAL) return;
@@ -41,21 +50,12 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
             console.log(generatedRoutes)
             let clientCode = generateClientCode(generatedRoutes, options);
             clientCode = (await options.onClientGenerated?.(clientCode)) || clientCode;
-            // debug.gen('client code: %O', clientCode)
-         
+            debug.gen('client code: %O', clientCode)
             return clientCode;
         },
-        async transform(_code, id) {
-            if (!/vue&type=route/.test(id)) 
-                return;
-            return {
-                code: "export default {};",
-                map: null,
-            };
-        },
-        generateBundle(_options, bundle) {
-            if (options.replaceSquareBrackets) 
-                replaceSquareBrackets(bundle);
+        // set alias module name
+        resolveId(id) {
+            return MODULE_IDS.includes(id) || MODULE_IDS.some((i) => id.startsWith(i)) ? MODULE_ID_VIRTUAL : null;
         },
     };
 }
