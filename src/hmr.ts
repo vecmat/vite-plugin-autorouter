@@ -36,7 +36,6 @@ export function handleHMR(server: ViteDevServer, pages: ResolvedPages, options: 
     watcher.on("change", async(path) => {
         if(/(vue.md)$/.test(path)) return
         const file =  path.replace(options.root, "");
-        console.log("-======>"+file)
         if (isTarget(file, options) && !options.react) {
             const needReload = await isRouteBlockChanged(file, options);
             if (needReload) {

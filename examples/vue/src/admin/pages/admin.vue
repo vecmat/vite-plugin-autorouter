@@ -1,9 +1,9 @@
 <route lang="toml">
 name ='admin'
 path = '/admin'
-
+[meta]
+test="s"
 </route>
-
 <template lang="pug">
 p /admin/index.vue
 p located in features /admin/pages asdfasdfasd 
@@ -14,6 +14,7 @@ p located in features /admin/pages asdfasdfasd
 export default {
 
 }
+
 </script>
 
 <style>

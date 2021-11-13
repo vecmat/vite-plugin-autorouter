@@ -1,10 +1,10 @@
 <route lang="toml">
-name ='test'
-path ='/test'
+name ='pagelayout'
+path ='/page'
 </route>
 
 <template lang="pug">
-p /test
+p /page layout
 router-view
 </template>
 

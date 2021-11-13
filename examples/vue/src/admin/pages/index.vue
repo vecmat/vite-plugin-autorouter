@@ -1,6 +1,6 @@
 <route lang="toml">
 name ='index'
-path = '/'
+path = '/index'
 
 </route>
 

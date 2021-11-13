@@ -1,11 +1,10 @@
 <route lang="toml">
-name ='toto'
-path = '/toto'
-parent = ["mainlayout","testlayout"]
+name ='mainlayout'
+path ='/main'
 </route>
 
 <template lang="pug">
-p /test/toto
+p /main layout
 router-view
 </template>
 

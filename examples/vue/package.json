@@ -2,7 +2,7 @@
     "private": true,
     "scripts": {
         "dev":"cross-env DEBUG=vite-plugin-autorouter:sss vite",
-        "dev2": "nodemon --watch ../../dist/*.js -x 'cross-env DEBUG=vite-plugin-autorouter:sss vite'",
+        "dev2": "nodemon --watch ../../dist/*.js -x 'cross-env DEBUG=vite-plugin-autorouter:* vite'",
         "build": "cross-env DEBUG=vite-plugin-autorouter vite build",
         "serve": "vite preview"
     },

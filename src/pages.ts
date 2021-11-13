@@ -36,7 +36,6 @@ export async function resolvePages(options: ResolvedOptions) {
     });
     for (const row of pageDirFiles) {
         for (const file of row.files) {
-            console.log(file)
             await setPage(pages, join(row.dir , file), options);
         }
 
@@ -50,14 +49,12 @@ export async function addPage(pages: ResolvedPages, file: string, options: Resol
         file.startsWith(`/${i}`)
     });
     if (!pageDir) return;
-    console.log(file,pageDir)
     await setPage(pages, file ,options);
 }
 
 export async function updatePage(pages: ResolvedPages, file: string , options: ResolvedOptions ) {
     const page = pages.get(file);
     if (page) {
-        console.log(file,options)
         const customBlock = routeBlockCache.get(file) || null;
         page.customBlock = customBlock;
         pages.set(file, page);

@@ -1,6 +1,6 @@
 <route lang="toml">
 name ='zzz'
-path = '[...]'
+path = '/:captured(.*)*'
 
 </route>
 
