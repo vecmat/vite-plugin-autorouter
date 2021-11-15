@@ -35,16 +35,34 @@ export function generateClientCode(routes: Route[], options: ResolvedOptions) {
 
 function insertRouter(stack: Route[],parent:string,route:Route){
     stack.map((node)=>{
-        if (node.name === parent){
+        if (node.chain === parent){
             node.children = node.children || [];
-            console.log(node.name ,"===",route)
             node.children.push(route);
-        }else{
-            if(node.children){
-                insertRouter(node.children,parent,route)
-            }
+        }
+        if(node.children){
+            insertRouter(node.children,parent,route)
         }
     })
+}
+
+function prepareRoutes(stack: Route[], options: ResolvedOptions){
+    stack.map((node)=>{
+        Object.assign(node, options.extendRoute?.(node) || {})
+        delete node.chain;
+        if (!options.react){
+            node.props = true;
+        } else {
+            delete node.name
+            node.routes = node.children
+            delete node.children
+            node.exact = true
+        }
+        if(node.children){
+            delete node.name
+            prepareRoutes(node.children,options)
+        }
+    })
+    return stack
 }
 
 export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): Route[] {
@@ -62,34 +80,34 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
             const route: Route = {
                 name: name,
                 path: path,
+                chain:name,
                 component,
             };
+            
             rooter.push(route);
             return;
         }
-        // ! 可能需要深度遍历
         // 多个 layout 则需要多次添加
         if (typeof parent === "string") {
             parent = [parent];
         }
-        // chain
-        // ! parent 应该使用链式标书  main.page.test
+        path = path.replace(/^\//,"")
         parent.map((lay: string) => {
             const route: Route = {
                 name: name,
                 path: path,
+                chain:lay+"."+name,
                 component,
             };
-            console.log("===>",lay)
             insertRouter(rooter,lay,route)
         });
     });
 
     // // 移除额外数据
-    // const preparedRoutes = prepareRoutes(rooter);
+    const preparedRoutes = prepareRoutes(rooter,options);
 
     // 路由排序
-    let finalRoutes = rooter.sort((a, b) => {
+    let finalRoutes = preparedRoutes.sort((a, b) => {
         if (a.path.includes(":") && b.path.includes(":")) return b.path > a.path ? 1 : -1;
         else if (a.path.includes(":") || b.path.includes(":")) return a.path.includes(":") ? 1 : -1;
         else return b.path > a.path ? 1 : -1;
@@ -105,6 +123,6 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
         finalRoutes = finalRoutes.filter((i) => !isCatchAllRoute(parse(i.component).name, nuxtStyle));
         finalRoutes.push(allRoute);
     }
-    console.log(JSON.stringify(finalRoutes,null,4));
+    // console.log(JSON.stringify(finalRoutes,null,4));
     return finalRoutes;
 }

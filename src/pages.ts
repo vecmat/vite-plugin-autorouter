@@ -20,6 +20,7 @@ async function setPage(pages: ResolvedPages, file: string, options: ResolvedOpti
         block = await getRouteBlock(filepath, options)
     }
     Object.assign(page,block)
+    block.path =  block.path.replace(/^(^\/)/,"/$1")
     pages.set(file,page);
 }
 

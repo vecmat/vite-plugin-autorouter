@@ -13,6 +13,7 @@ export type ResolvedPages = Map<string, ResolvedPage>;
 export interface Route {
     path: string;
     name?: string;
+    chain?:string;
     props?: boolean | Record<string, any> | ((to: any) => Record<string, any>);
     component: string;
     exact?: boolean;
@@ -83,7 +84,7 @@ export interface ResolvedOptions extends Options {
     /**
      * Extend route records
      */
-    extendRoute?: (route: Route, parent: Route | undefined) => Route | void;
+    extendRoute?: (route: Route) => Route | void;
     /**
      * Custom generated routes
      */

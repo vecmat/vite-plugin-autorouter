@@ -43,7 +43,6 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
             if (!generatedRoutes) {
                 generatedRoutes = [];
                 generatedRoutes = generateRoutes(pages, options);
-                // console.log(generatedRoutes)
                 generatedRoutes = (await options.onRoutesGenerated?.(generatedRoutes)) || generatedRoutes;
             }
             debug.gen("routes: %O", generatedRoutes);
