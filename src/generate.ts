@@ -73,10 +73,9 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
     const sortpages = rearrange(pages);
 
     sortpages.forEach((page: ResolvedPage) => {
-        let { name, path, parent, component } = page;
-        // 默认栈是根路由
-
-        if (!parent) {
+        let { name, path, parents, component } = page;
+        // "" || null
+        if (!parents) {
             const route: Route = {
                 name: name,
                 path: path,
@@ -88,18 +87,18 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
             return;
         }
         // 多个 layout 则需要多次添加
-        if (typeof parent === "string") {
-            parent = [parent];
+        if (typeof parents === "string") {
+            parents = [parents];
         }
         path = path.replace(/^\//,"")
-        parent.map((lay: string) => {
+        parents.map((parent: string) => {
             const route: Route = {
                 name: name,
                 path: path,
-                chain:lay+"."+name,
+                chain:parent+"."+name,
                 component,
             };
-            insertRouter(rooter,lay,route)
+            insertRouter(rooter,parent,route)
         });
     });
 

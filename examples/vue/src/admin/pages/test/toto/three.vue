@@ -1,6 +1,6 @@
 <route lang="toml">
 path ='/three'
-parent = "test.toto"
+parents = "test.toto"
 </route>
 
 <template lang="pug">

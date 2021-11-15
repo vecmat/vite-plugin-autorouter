@@ -1,18 +1,19 @@
 import { getPageFiles } from "./files";
-import { join, extname, resolve ,basename} from "path";
+import { join, extname, resolve ,basename,dirname} from "path";
 import {  ResolvedOptions, ResolvedPages, ResolvedPage } from "./types";
 import { getRouteBlock, routeBlockCache, toArray, slash } from "./utils";
 
 // 只负责生成一个MAP对象
 
-async function setPage(pages: ResolvedPages, file: string, options: ResolvedOptions) {
+async function setPage(pages: ResolvedPages, dir:string, file: string, options: ResolvedOptions) {
     const extension = extname(file).slice(1);
     const filepath = slash(resolve(options.root, file));
     const filename = basename(file).replace(options.extensionsRE, "");
-
+    const parents = dirname(file).replace(dir,"").replace(/^\//,"").replace(/\//g,".")
     let page : ResolvedPage = { 
         name:`${filename}` ,
         path:`/${filename}` , 
+        parents : `${parents}`,
         component : `/${file}`,
      } ;
     let block : Record<string, any> =  {};
@@ -37,7 +38,7 @@ export async function resolvePages(options: ResolvedOptions) {
     });
     for (const row of pageDirFiles) {
         for (const file of row.files) {
-            await setPage(pages, join(row.dir , file), options);
+            await setPage(pages,row.dir, join(row.dir , file), options);
         }
 
     }
@@ -50,7 +51,7 @@ export async function addPage(pages: ResolvedPages, file: string, options: Resol
         file.startsWith(`/${i}`)
     });
     if (!pageDir) return;
-    await setPage(pages, file ,options);
+    await setPage(pages,pageDir , file ,options);
 }
 
 export async function updatePage(pages: ResolvedPages, file: string , options: ResolvedOptions ) {
