@@ -1,5 +1,5 @@
 <route lang="toml">
-name ='mainlayout'
+name ='main'
 path ='/main'
 </route>
 

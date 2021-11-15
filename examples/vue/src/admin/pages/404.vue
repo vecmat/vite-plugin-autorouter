@@ -1,7 +1,8 @@
 <route lang="toml">
 name ='zzz'
 path = '/:captured(.*)*'
-
+[meta]
+pppck="asdfasdf"
 </route>
 
 <template lang="pug">

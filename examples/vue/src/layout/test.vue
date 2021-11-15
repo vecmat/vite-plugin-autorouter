@@ -1,7 +1,6 @@
 <route lang="toml">
-name ='testlayout'
+name ='test'
 path ='/test'
-
 </route>
 
 <template lang="pug">

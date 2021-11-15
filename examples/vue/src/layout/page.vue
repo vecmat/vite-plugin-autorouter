@@ -1,5 +1,5 @@
 <route lang="toml">
-name ='pagelayout'
+name ='page'
 path ='/page'
 </route>
 
