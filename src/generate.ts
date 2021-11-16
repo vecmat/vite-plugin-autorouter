@@ -32,6 +32,13 @@ export function generateClientCode(routes: Route[], options: ResolvedOptions) {
 
 
 function insertRouter(stack: Route[],parent:string,route:Route){
+    // insert to root
+    if (!parent) {
+        route.path = "$"+route.path
+        stack.push(route);
+        return;
+    }
+    // 
     stack.map((node)=>{
         // console.log(node.chain ,"====",parent)
         if (node.chain?.endsWith(parent)){
@@ -44,7 +51,7 @@ function insertRouter(stack: Route[],parent:string,route:Route){
     })
 }
 
-function prepareRoutes(stack: Route[], options: ResolvedOptions){
+function prepareRoutes(stack: Route[], options: ResolvedOptions,root:boolean=false){
     let repeat = new Set();
     for(let node of stack) {
         if(repeat.has(node.path)){
@@ -53,6 +60,11 @@ function prepareRoutes(stack: Route[], options: ResolvedOptions){
         repeat.add(node.path)
         Object.assign(node, options.extendRoute?.(node) || {})
         delete node.chain;
+        if(root){
+            node.path = node.path.replace(/^\$/, '')
+        }else{
+            node.path = node.path.replace(/^\//, '')
+        }
         if (!options.react){
             node.props = true;
         } else {
@@ -78,28 +90,14 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
     // console.log(sortpages)
     sortpages.forEach((page: ResolvedPage) => {
         let { name, path, parents, component } = page;
-        // "" || null
-        if (!parents) {
-            const route: Route = {
-                name: name,
-                path: path,
-                chain:path,
-                component,
-            };
-            
-            rooter.push(route);
-            return;
-        }
-        // 多个 layout 则需要多次添加
         if (typeof parents === "string") {
             parents = [parents];
         }
-        path = path.replace(/^\//,"")
         parents.map((parent: string) => {
             const route: Route = {
                 name: name,
                 path: path,
-                chain:parent+"/"+path,
+                chain:parent+path,
                 component,
             };
             insertRouter(rooter,parent,route)
@@ -107,7 +105,7 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
     });
 
 
-    const preparedRoutes = prepareRoutes(rooter,options);
+    const preparedRoutes = prepareRoutes(rooter,options,true);
     let finalRoutes = preparedRoutes.sort((a, b) => {
         if (a.path.includes(":") && b.path.includes(":")) return b.path > a.path ? 1 : -1;
         else if (a.path.includes(":") || b.path.includes(":")) return a.path.includes(":") ? 1 : -1;
