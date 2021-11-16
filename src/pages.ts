@@ -9,7 +9,7 @@ async function setPage(pages: ResolvedPages, dir:string, file: string, options: 
     const extension = extname(file).slice(1);
     const filepath = slash(resolve(options.root, file));
     const filename = basename(file).replace(options.extensionsRE, "");
-    const parents = dirname(file).replace(dir,"").replace(/^\//,"").replace(/\//g,".")
+    const parents = dirname(file).replace(dir,"")
     let page : ResolvedPage = { 
         name:`${filename}` ,
         path:`/${filename}` , 
@@ -22,6 +22,7 @@ async function setPage(pages: ResolvedPages, dir:string, file: string, options: 
     }
     Object.assign(page,block)
     // page.path =  page.path.replace(/^(^\/)/,"/$1")
+    // console.log(filepath)
     pages.set(file,page);
 }
 

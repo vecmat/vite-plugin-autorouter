@@ -3,7 +3,6 @@ import { parse } from "path";
 import { stringifyRoutes } from "./stringify";
 import { isDynamicRoute, isCatchAllRoute } from "./utils";
 import { Route, ResolvedOptions, ResolvedPages, ResolvedPage } from "./types";
-import { debug } from "./utils";
 
 // 排序规则
 // layout >  slash > strlen
@@ -13,8 +12,8 @@ export function rearrange(pages: ResolvedPages) {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             .map(([_, value]) => value)
             .sort((a, b) => {
-                if(a.layout && !b.layout) return 1;
-                if(!a.layout && b.layout) return -1;
+                if(a.parents && !b.parents) return 1;
+                if(!a.parents && b.parents) return -1;
                 let slasha = (a.path.match(/\//g) || []).length;
                 let slashb =(b.path.match(/\//g) || []).length;
                 if (slasha != slashb) {
@@ -34,7 +33,8 @@ export function generateClientCode(routes: Route[], options: ResolvedOptions) {
 
 function insertRouter(stack: Route[],parent:string,route:Route){
     stack.map((node)=>{
-        if (node.chain === parent){
+        // console.log(node.chain ,"====",parent)
+        if (node.chain?.endsWith(parent)){
             node.children = node.children || [];
             node.children.push(route);
         }
@@ -75,7 +75,7 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
     const rooter: Route[] = [];
     // 先创建完全路由表
     const sortpages = rearrange(pages);
-
+    // console.log(sortpages)
     sortpages.forEach((page: ResolvedPage) => {
         let { name, path, parents, component } = page;
         // "" || null
@@ -83,7 +83,7 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
             const route: Route = {
                 name: name,
                 path: path,
-                chain:name,
+                chain:path,
                 component,
             };
             
@@ -99,7 +99,7 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
             const route: Route = {
                 name: name,
                 path: path,
-                chain:parent+"."+name,
+                chain:parent+"/"+path,
                 component,
             };
             insertRouter(rooter,parent,route)
