@@ -1,18 +1,16 @@
-
 <route lang="toml">
-name="sensor"
-path="/:path(.*)*"
+name ='404'
+path = '/:path*'
 </route>
 
-<template>
-  <div>Inside 404 for {{path}}</div>
-
+<template lang="pug">
+p Sensor Inside 404 :
+| {{ JSON.stringify(path)}}
 </template>
 
 <script lang="ts" setup>
 defineProps({
-  path: Array|| String
-
+  path : Array
 })
 
 </script>

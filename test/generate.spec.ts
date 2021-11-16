@@ -3,14 +3,14 @@ import { resolvePages } from '../src/pages'
 import { resolveOptions } from '../src/options'
 
 const options = resolveOptions({
-  pagesDir: 'test/assets/pages',
+  pagesDir: ['test/assets/pages'],
   extendRoute(route) {
     if (route.name === 'about')
       route.props = route => ({ query: route.query.q })
   },
 })
 const nuxtOptions = resolveOptions({
-  pagesDir: 'test/assets/nuxt-pages',
+  pagesDir: ['test/assets/nuxt-pages'],
   nuxtStyle: true,
 })
 

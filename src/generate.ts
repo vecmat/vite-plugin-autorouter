@@ -68,6 +68,7 @@ function insertRouter(stack: Route[], parent: string, route: Route):boolean {
         // console.log(node.chain,">>>",parent)
         if (node.chain?.endsWith(parent)) {
             inserted = true;
+            route.name = node.name +"-"+  route.name;
             route.chain = node.chain +  route.path;
             node.children = node.children || [];
             node.children.push(route);
@@ -89,8 +90,7 @@ function prepareRoutes(stack: Route[], options: ResolvedOptions, root?: boolean)
             throw new Error(`[vite-plugin-auturouter] duplicate route for ${node.component}`);
         }
         repeat.add(node.path);
-       
-        // delete node.chain;
+        delete node.chain;
         if (root) {
             node.path = node.path.replace(/^\$/, "");
         } else {
@@ -105,7 +105,7 @@ function prepareRoutes(stack: Route[], options: ResolvedOptions, root?: boolean)
             delete node.name;
         }
         if (node.children) {
-            delete node.name;
+            // delete node.name;
             node.children = prepareRoutes(node.children, options);
         }
         Object.assign(node, options.extendRoute?.(node) || {});

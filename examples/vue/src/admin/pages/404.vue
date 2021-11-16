@@ -1,13 +1,13 @@
 <route lang="toml">
 name ='zzz'
-path = '/:level(.*)*'
+path = '/:level*'
 [meta]
 pppck="asdfasdf"
 </route>
 
 <template lang="pug">
 p Global 404 page for :
-| {{level?.join("/")}}
+| {{level}}
 
 </template>
 

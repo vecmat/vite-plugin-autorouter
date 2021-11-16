@@ -3,13 +3,12 @@ import { join, extname, resolve ,basename,dirname} from "path";
 import {  ResolvedOptions, ResolvedPages, ResolvedPage } from "./types";
 import { getRouteBlock, routeBlockCache, toArray, slash } from "./utils";
 
+
 async function setPage(pages: ResolvedPages, dir:string, file: string, options: ResolvedOptions) {
     let extension = extname(file).slice(1);
     let parents = dirname(file).replace(dir,"")
     let filepath = slash(resolve(options.root, file));
     let filename = basename(file).replace(options.extensionsRE, "");
-
-
     filename = filename.replace(/(\[([^\[\]]+)\])/g,":$2")
     parents =  parents.replace(/(\[([^\[\]]+)\])/g,":$2")
     filename = filename.replace(/(\[(\.\.\.)\])/g,":any(.*)*")
@@ -32,7 +31,6 @@ async function setPage(pages: ResolvedPages, dir:string, file: string, options: 
 export async function resolvePages(options: ResolvedOptions) {
     const dirs = toArray(options.pagesDir);
     const pages = new Map<string, ResolvedPage>();
-
     const pageDirFiles = dirs.map((dir) => {
         const pagePath = slash(resolve(options.root, dir));
         return {
