@@ -3,7 +3,7 @@ import { parse } from "path";
 import { stringifyRoutes } from "./stringify";
 import { isDynamicRoute, isCatchAllRoute } from "./utils";
 import { Route, ResolvedOptions, ResolvedPages, ResolvedPage } from "./types";
-
+import { debug } from "./utils";
 
 // 排序规则
 // layout >  slash > strlen
@@ -14,8 +14,7 @@ export function rearrange(pages: ResolvedPages) {
             .map(([_, value]) => value)
             .sort((a, b) => {
                 if(a.layout && !b.layout) return 1;
-                if(!a.layout && b.layout) return 1;
-                
+                if(!a.layout && b.layout) return -1;
                 let slasha = (a.path.match(/\//g) || []).length;
                 let slashb =(b.path.match(/\//g) || []).length;
                 if (slasha != slashb) {
@@ -46,7 +45,12 @@ function insertRouter(stack: Route[],parent:string,route:Route){
 }
 
 function prepareRoutes(stack: Route[], options: ResolvedOptions){
-    stack.map((node)=>{
+    let repeat = new Set();
+    for(let node of stack) {
+        if(repeat.has(node.path)){
+            throw new Error(`[vite-plugin-pages] duplicate route for ${node.component}`)
+        }
+        repeat.add(node.path)
         Object.assign(node, options.extendRoute?.(node) || {})
         delete node.chain;
         if (!options.react){
@@ -59,9 +63,9 @@ function prepareRoutes(stack: Route[], options: ResolvedOptions){
         }
         if(node.children){
             delete node.name
-            prepareRoutes(node.children,options)
+            node.children =  prepareRoutes(node.children,options)
         }
-    })
+    }
     return stack
 }
 
@@ -102,17 +106,14 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
         });
     });
 
-    // // 移除额外数据
-    const preparedRoutes = prepareRoutes(rooter,options);
 
-    // 路由排序
+    const preparedRoutes = prepareRoutes(rooter,options);
     let finalRoutes = preparedRoutes.sort((a, b) => {
         if (a.path.includes(":") && b.path.includes(":")) return b.path > a.path ? 1 : -1;
         else if (a.path.includes(":") || b.path.includes(":")) return a.path.includes(":") ? 1 : -1;
         else return b.path > a.path ? 1 : -1;
     });
     // 把catchAll 跳出来放最后
-    // replace duplicated cache all route
     // todo (.*)* 结尾的放最后
     const allRoute = finalRoutes.find((i) => {
         return isCatchAllRoute(parse(i.component).name, nuxtStyle);

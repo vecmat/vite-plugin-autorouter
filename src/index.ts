@@ -42,9 +42,14 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
             if (id !== MODULE_ID_VIRTUAL) return;
             if (!generatedRoutes) {
                 generatedRoutes = [];
-                generatedRoutes = generateRoutes(pages, options);
+                try{
+                    generatedRoutes = generateRoutes(pages, options);
+                }catch(err:any){
+                    console.error(err)
+                }
                 generatedRoutes = (await options.onRoutesGenerated?.(generatedRoutes)) || generatedRoutes;
             }
+
             debug.gen("routes: %O", generatedRoutes);
             let clientCode = generateClientCode(generatedRoutes, options);
             clientCode = (await options.onClientGenerated?.(clientCode)) || clientCode;

@@ -21,7 +21,7 @@ async function setPage(pages: ResolvedPages, dir:string, file: string, options: 
         block = await getRouteBlock(filepath, options)
     }
     Object.assign(page,block)
-    block.path =  block.path.replace(/^(^\/)/,"/$1")
+    // page.path =  page.path.replace(/^(^\/)/,"/$1")
     pages.set(file,page);
 }
 
@@ -40,7 +40,6 @@ export async function resolvePages(options: ResolvedOptions) {
         for (const file of row.files) {
             await setPage(pages,row.dir, join(row.dir , file), options);
         }
-
     }
     return pages;
 }
@@ -60,7 +59,7 @@ export async function updatePage(pages: ResolvedPages, file: string , options: R
         const customBlock = routeBlockCache.get(file) || null;
         page.customBlock = customBlock;
         pages.set(file, page);
-        
+        console.log(options)
     }
 }
 
