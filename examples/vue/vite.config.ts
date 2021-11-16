@@ -1,3 +1,4 @@
+
 import { resolve } from "path";
 import { defineConfig } from "vite";
 import Vue from "@vitejs/plugin-vue";
@@ -12,17 +13,17 @@ const config = defineConfig({
         }),
         Auto({
             pagesDir: [
-                "src/layout/",
+                "./layout/",
                 "src/admin/pages/",
-                // "src/features/**/pages",
-                // resolve(__dirname, "./src/pages"),
+                "src/features/**/pages",
+                resolve(__dirname, "./src/pages"),
             ],
-            extensions: ["vue", "md"],
             syncIndex: true,
-            replaceSquareBrackets: true,
+            extensions: ["vue", "md"],
             extendRoute(route: any) {
-                if (route.name === "about") route.props = (route: any) => ({ query: route.query.q });
-
+                // if (route.name === "about") {
+                //     route.props = (route: any) => ({ query: route.query.q });
+                // }
                 if (route.name === "components") {
                     return {
                         ...route,

@@ -1,15 +1,12 @@
 <route lang="toml">
-name ='index'
-path = '/index'
-
+name ='toto'
+path = "/toto"
 </route>
 
 <template lang="pug">
-p /admin/index.vue
-p located in features /admin/pages asdfasdfasd 
-
+p /one/toto [one/2.vue]
+router-view
 </template>
-
 
 <script lang="ts">
 export default {

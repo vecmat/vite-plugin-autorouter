@@ -3,13 +3,17 @@ import { join, extname, resolve ,basename,dirname} from "path";
 import {  ResolvedOptions, ResolvedPages, ResolvedPage } from "./types";
 import { getRouteBlock, routeBlockCache, toArray, slash } from "./utils";
 
-// 只负责生成一个MAP对象
-
 async function setPage(pages: ResolvedPages, dir:string, file: string, options: ResolvedOptions) {
-    const extension = extname(file).slice(1);
-    const filepath = slash(resolve(options.root, file));
-    const filename = basename(file).replace(options.extensionsRE, "");
-    const parents = dirname(file).replace(dir,"")
+    let extension = extname(file).slice(1);
+    let parents = dirname(file).replace(dir,"")
+    let filepath = slash(resolve(options.root, file));
+    let filename = basename(file).replace(options.extensionsRE, "");
+
+
+    filename = filename.replace(/(\[([^\[\]]+)\])/g,":$2")
+    parents =  parents.replace(/(\[([^\[\]]+)\])/g,":$2")
+    filename = filename.replace(/(\[(\.\.\.)\])/g,":any(.*)*")
+    parents =  parents.replace(/(\[(\.\.\.)\])/g,":any(.*)*")
     let page : ResolvedPage = { 
         name:`${filename}` ,
         path:`/${filename}` , 
@@ -21,8 +25,7 @@ async function setPage(pages: ResolvedPages, dir:string, file: string, options: 
         block = await getRouteBlock(filepath, options)
     }
     Object.assign(page,block)
-    // page.path =  page.path.replace(/^(^\/)/,"/$1")
-    // console.log(filepath)
+    page.path =   page.path.replace(/^([^/$])/,"/$1");
     pages.set(file,page);
 }
 

@@ -1,8 +1,6 @@
 <template>
   nested about view:
+  <br>
   <router-view />
 </template>
 
-<route lang="toml">
-name="test"
-</route>

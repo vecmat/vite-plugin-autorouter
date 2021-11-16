@@ -1,10 +1,13 @@
 <template>
-  <p>/[sensor]/current.vue</p>
+
+This is liar 
+<br>
+"/blog/liar.vue"
 </template>
 <route lang="toml">
 name ='current'
-layout= true
-path = '/:sensor/current'
+path="liar"
+parents = "$/about"
 [meta]
 requiresAuth=true
 </route>

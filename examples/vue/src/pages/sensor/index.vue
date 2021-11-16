@@ -1,3 +1,4 @@
 <template>
-about/index.vue
+sensor Index page
 </template>
+

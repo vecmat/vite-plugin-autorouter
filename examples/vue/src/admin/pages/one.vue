@@ -1,13 +1,12 @@
 <route lang="toml">
-name ='admin'
-path = '/admin'
+name ='test'
+path = '/one'
 [meta]
-test="s"
+test="str"
 </route>
 <template lang="pug">
-p /admin/index.vue
-p located in features /admin/pages asdfasdfasd 
-
+p /admin/one.vue
+router-view
 </template>
 
 <script lang="ts">

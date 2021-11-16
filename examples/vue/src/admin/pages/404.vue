@@ -1,25 +1,19 @@
 <route lang="toml">
 name ='zzz'
-path = '/:captured(.*)*'
+path = '/:level(.*)*'
 [meta]
 pppck="asdfasdf"
 </route>
 
 <template lang="pug">
-p 404 page {{captured?.join("/")}}
+p Global 404 page for :
+| {{level?.join("/")}}
 
 </template>
 
-
-
-
 <script lang="ts" setup>
 defineProps({
-  captured: Array
+  level: Array
 })
 
 </script>
-
-<style>
-
-</style>

@@ -1,3 +1,3 @@
 <template>
-about/index.vue
+  blog/today/index.vue
 </template>

@@ -1,11 +1,7 @@
-<route lang="toml">
-name ='admin'
-path ='/admin'
-</route>
+
 
 <template lang="pug">
-p /main layout
-router-view
+p ..../two/three
 </template>
 
 <script lang="ts">
@@ -14,3 +10,6 @@ export default {
 }
 </script>
 
+<style>
+
+</style>

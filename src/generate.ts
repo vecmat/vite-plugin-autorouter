@@ -1,21 +1,26 @@
-
 import { parse } from "path";
 import { stringifyRoutes } from "./stringify";
 import { isDynamicRoute, isCatchAllRoute } from "./utils";
 import { Route, ResolvedOptions, ResolvedPages, ResolvedPage } from "./types";
 
+export function generateClientCode(routes: Route[], options: ResolvedOptions) {
+    const { imports, stringRoutes } = stringifyRoutes(routes, options);
+    return `${imports.join(";\n")};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`;
+}
+
+
 // 排序规则
 // layout >  slash > strlen
-export function rearrange(pages: ResolvedPages) {
+export function sortPage(pages: ResolvedPages) {
     return (
         [...pages]
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             .map(([_, value]) => value)
             .sort((a, b) => {
-                if(a.parents && !b.parents) return 1;
-                if(!a.parents && b.parents) return -1;
+                if (a.parents && !b.parents) return 1;
+                if (!a.parents && b.parents) return -1;
                 let slasha = (a.path.match(/\//g) || []).length;
-                let slashb =(b.path.match(/\//g) || []).length;
+                let slashb = (b.path.match(/\//g) || []).length;
                 if (slasha != slashb) {
                     return slasha - slashb;
                 } else {
@@ -25,68 +30,94 @@ export function rearrange(pages: ResolvedPages) {
     );
 }
 
-export function generateClientCode(routes: Route[], options: ResolvedOptions) {
-    const { imports, stringRoutes } = stringifyRoutes(routes, options);
-    return `${imports.join(";\n")};\n\nconst routes = ${stringRoutes};\n\nexport default routes;`;
-}
-
-
-function insertRouter(stack: Route[],parent:string,route:Route){
-    // insert to root
-    if (!parent) {
-        route.path = "$"+route.path
-        stack.push(route);
-        return;
-    }
-    // 
-    stack.map((node)=>{
-        // console.log(node.chain ,"====",parent)
-        if (node.chain?.endsWith(parent)){
-            node.children = node.children || [];
-            node.children.push(route);
-        }
-        if(node.children){
-            insertRouter(node.children,parent,route)
+// match > slash >strlen
+export function sortRouter(stack: Route[]) {
+    return stack
+    .sort((a, b) => {
+        let matcha  = a.path.replace(/[^\:\/]/g,"").indexOf(":") 
+        matcha=matcha<0?999:matcha;
+        let matchb  = b.path.replace(/[^\:\/]/g,"").indexOf(":")
+        matchb=matchb<0?999:matchb;
+        let slasha = (a.path.match(/\//g) || []).length;
+        let slashb = (b.path.match(/\//g) || []).length;
+        if(matcha != matchb){
+            return matchb - matcha ;
+        }else{
+            if (slasha != slashb) {
+                return slasha - slashb;
+            } else {
+                return a.path.length - b.path.length;
+            }
         }
     })
 }
 
-function prepareRoutes(stack: Route[], options: ResolvedOptions,root:boolean=false){
+
+function insertRouter(stack: Route[], parent: string, route: Route):boolean {
+    // todo duplicate check ？
+    // insert to root
+    let inserted = false;
+    if (!parent) {
+        route.path = "$" + route.path;
+        route.chain = "$" + route.chain;
+        stack.push(route);
+        return true;
+    }
+    // insert children router
+    for(let node of stack){
+        // console.log(node.chain,">>>",parent)
+        if (node.chain?.endsWith(parent)) {
+            inserted = true;
+            route.chain = node.chain +  route.path;
+            node.children = node.children || [];
+            node.children.push(route);
+        }
+        if (node.children) {
+            if(insertRouter(node.children, parent, route)){
+                inserted = true;
+            }
+        }
+    };
+    return inserted;
+}
+
+
+function prepareRoutes(stack: Route[], options: ResolvedOptions, root?: boolean) {
     let repeat = new Set();
-    for(let node of stack) {
-        if(repeat.has(node.path)){
-            throw new Error(`[vite-plugin-pages] duplicate route for ${node.component}`)
+    for (let node of stack) {
+        if (repeat.has(node.path)) {
+            throw new Error(`[vite-plugin-auturouter] duplicate route for ${node.component}`);
         }
-        repeat.add(node.path)
-        Object.assign(node, options.extendRoute?.(node) || {})
-        delete node.chain;
-        if(root){
-            node.path = node.path.replace(/^\$/, '')
-        }else{
-            node.path = node.path.replace(/^\//, '')
+        repeat.add(node.path);
+       
+        // delete node.chain;
+        if (root) {
+            node.path = node.path.replace(/^\$/, "");
+        } else {
+            node.path = node.path.replace(/^\//, "");
         }
-        if (!options.react){
+        if (!options.react) {
             node.props = true;
         } else {
-            delete node.name
-            node.routes = node.children
-            delete node.children
-            node.exact = true
+            node.routes = node.children;
+            delete node.children;
+            node.exact = true;
+            delete node.name;
         }
-        if(node.children){
-            delete node.name
-            node.children =  prepareRoutes(node.children,options)
+        if (node.children) {
+            delete node.name;
+            node.children = prepareRoutes(node.children, options);
         }
+        Object.assign(node, options.extendRoute?.(node) || {});
     }
-    return stack
+    return  sortRouter(stack);
 }
 
 export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): Route[] {
     const { nuxtStyle } = options;
 
-    const rooter: Route[] = [];
-    // 先创建完全路由表
-    const sortpages = rearrange(pages);
+    let stack: Route[] = [];
+    const sortpages = sortPage(pages);
     // console.log(sortpages)
     sortpages.forEach((page: ResolvedPage) => {
         let { name, path, parents, component } = page;
@@ -95,32 +126,27 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
         }
         parents.map((parent: string) => {
             const route: Route = {
-                name: name,
                 path: path,
-                chain:parent+path,
+                name: name,
+                chain: parent+path,
                 component,
             };
-            insertRouter(rooter,parent,route)
+            let inserted = insertRouter(stack, parent, route);
+            // 深度目录直接创建多层级路由
+            // insert for depth router
+            if (!inserted) {
+                path = path.replace(/^([^/$])/,"/$1");
+                parent =  parent.replace(/^\$/,"");
+                parent =  parent.replace(/^([^/$])/,"/$1");
+                route.path = parent+path
+                route.path = "$" +  parent+path,
+                stack.push(route);
+            }
         });
     });
-
-
-    const preparedRoutes = prepareRoutes(rooter,options,true);
-    let finalRoutes = preparedRoutes.sort((a, b) => {
-        if (a.path.includes(":") && b.path.includes(":")) return b.path > a.path ? 1 : -1;
-        else if (a.path.includes(":") || b.path.includes(":")) return a.path.includes(":") ? 1 : -1;
-        else return b.path > a.path ? 1 : -1;
-    });
-    // 把catchAll 跳出来放最后
-    // todo (.*)* 结尾的放最后
-    const allRoute = finalRoutes.find((i) => {
-        return isCatchAllRoute(parse(i.component).name, nuxtStyle);
-    });
-
-    if (allRoute) {
-        finalRoutes = finalRoutes.filter((i) => !isCatchAllRoute(parse(i.component).name, nuxtStyle));
-        finalRoutes.push(allRoute);
-    }
-    // console.log(JSON.stringify(finalRoutes,null,4));
+    // console.log(JSON.stringify(stack, null, 4));
+    const finalRoutes = prepareRoutes(stack, options, true);
+    // console.log(JSON.stringify(finalRoutes, null, 4));
     return finalRoutes;
 }
+

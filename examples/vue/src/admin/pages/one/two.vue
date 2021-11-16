@@ -1,10 +1,5 @@
-<route lang="toml">
-name ='toto'
-path = '/toto'
-</route>
-
 <template lang="pug">
-p /test/toto
+p .../one/two
 router-view
 </template>
 

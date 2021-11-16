@@ -6,7 +6,7 @@ import { ViteDevServer } from "vite";
 import { toArray, slash } from "@antfu/utils";
 import { ResolvedOptions, Route } from "./types";
 import { parseSFC, parseCustomBlock } from "./parser";
-import { MODULE_ID_VIRTUAL } from "./constants";
+import { MODULE_REQUEST_ID } from "./constants";
 import type { OutputBundle } from "rollup";
 
 export { toArray, slash };
@@ -94,7 +94,7 @@ export async function getRouteBlock(path: string, options: ResolvedOptions) {
 
 export function getPagesVirtualModule(server: ViteDevServer) {
     const { moduleGraph } = server;
-    const module = moduleGraph.getModuleById(MODULE_ID_VIRTUAL);
+    const module = moduleGraph.getModuleById(MODULE_REQUEST_ID);
     if (module) {
         moduleGraph.invalidateModule(module);
         return module;

@@ -2,7 +2,7 @@ import { Route, ResolvedOptions, UserOptions, ResolvedPages } from "./types";
 import { generateRoutes, generateClientCode } from "./generate";
 import { debug, replaceSquareBrackets } from "./utils";
 import { resolveOptions } from "./options";
-import { MODULE_IDS, MODULE_ID_VIRTUAL } from "./constants";
+import { MODULE_VIRTUAL_ID, MODULE_REQUEST_ID } from "./constants";
 import { resolvePages } from "./pages";
 import { handleHMR } from "./hmr";
 import type { Plugin } from "vite";
@@ -39,7 +39,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
             debug.pages(pages);
         },
         async load(id) {
-            if (id !== MODULE_ID_VIRTUAL) return;
+            if (id !== MODULE_REQUEST_ID) return;
             if (!generatedRoutes) {
                 generatedRoutes = [];
                 try{
@@ -49,7 +49,6 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
                 }
                 generatedRoutes = (await options.onRoutesGenerated?.(generatedRoutes)) || generatedRoutes;
             }
-
             debug.gen("routes: %O", generatedRoutes);
             let clientCode = generateClientCode(generatedRoutes, options);
             clientCode = (await options.onClientGenerated?.(clientCode)) || clientCode;
@@ -58,7 +57,7 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
         },
         // set alias module name
         resolveId(id) {
-            return MODULE_IDS.includes(id) || MODULE_IDS.some((i) => id.startsWith(i)) ? MODULE_ID_VIRTUAL : null;
+            return id.startsWith(MODULE_VIRTUAL_ID) ? MODULE_REQUEST_ID : null;
         },
     };
 }
