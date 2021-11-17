@@ -3,16 +3,33 @@ import { join, extname, resolve ,basename,dirname} from "path";
 import {  ResolvedOptions, ResolvedPages, ResolvedPage } from "./types";
 import { getRouteBlock, routeBlockCache, toArray, slash } from "./utils";
 
+// 匹配替换
+// var path = "/_/_name/pre_name/[...]/asdf[id]/sss[...]/[...]"
+function matchFormat(path:string){
+    
+    // "/aaa/_/ddd" => "/aaa/:/ddd"
+    // "/aaa/_any/ddd" => "/aaa/:/ddd"
+    path = path.replace(/_([^\[\]\\\/]*)/g,":$1")
+    // "/aaa/[...]/ddd" => "/aaa/:/ddd"
+    // "/aaa/bbb[...any]/ddd" => "/aaa/bbb:/ddd"
+    path = path.replace(/(\[(\.\.\.)?([^\]\/]*)\])/g,":$3")
+    // "/aaa/[any]/ddd" => "/aaa/:/ddd"
+    // "/aaa/bbb[any]/ddd" => "/aaa/bbb:/ddd"
+    path = path.replace(/(\[([^\[\]]+)\])/g,":$2")
+    // /:/sss:/   ====>  /:any(.*)*/sss:any/
+    path = path.replace(/(^|\/)(\:)(\/|$)/g,"$1:any(.*)*$3")
+    path = path.replace(/(^|\/)([^\]\/]*)?(\:)(\/|$)/g,"$1$2:any$4")
+    return path ;
+}
+
 
 async function setPage(pages: ResolvedPages, dir:string, file: string, options: ResolvedOptions) {
     let extension = extname(file).slice(1);
     let parents = dirname(file).replace(dir,"")
     let filepath = slash(resolve(options.root, file));
     let filename = basename(file).replace(options.extensionsRE, "");
-    filename = filename.replace(/(\[([^\[\]]+)\])/g,":$2")
-    parents =  parents.replace(/(\[([^\[\]]+)\])/g,":$2")
-    filename = filename.replace(/(\[(\.\.\.)\])/g,":any(.*)*")
-    parents =  parents.replace(/(\[(\.\.\.)\])/g,":any(.*)*")
+    filename =  matchFormat(filename)
+    parents =  matchFormat(parents)
     let page : ResolvedPage = { 
         name:`${filename}` ,
         path:`/${filename}` , 
@@ -61,7 +78,10 @@ export async function updatePage(pages: ResolvedPages, file: string , options: R
         const customBlock = routeBlockCache.get(file) || null;
         page.customBlock = customBlock;
         pages.set(file, page);
-        console.log(options)
+        
+    }
+    if(file === "UNMATCHED"){
+        console.log(options.root)
     }
 }
 
