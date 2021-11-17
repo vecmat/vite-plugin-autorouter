@@ -13,10 +13,10 @@ describe('Utils', () => {
     expect(isDynamicRoute('me')).toBe(false)
   })
   test('Catch all route', () => {
-    expect(isCatchAllRoute('[...all]')).toBe(true)
-    expect(isCatchAllRoute('_', true)).toBe(true)
-    expect(isCatchAllRoute('[id]')).toBe(false)
-    expect(isCatchAllRoute('_id', true)).toBe(false)
+      expect(isCatchAllRoute('_', true)).toBe(true)
+      expect(isCatchAllRoute('_id', true)).toBe(false)
+      expect(isCatchAllRoute('[id]')).toBe(false)
+      expect(isCatchAllRoute('[...all]')).toBe(true)
   })
   test('Path to name', () => {
     expect(pathToName('user-[route]-current')).toBe('user_$route$_current')

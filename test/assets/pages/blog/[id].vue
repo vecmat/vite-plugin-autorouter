@@ -1,13 +1,3 @@
-<script setup lang="ts">
-defineProps({
-  id: String,
-})
-
-</script>
-
-<template>
-  blog/[id].vue: {{ id }}
-</template>
 
 <route>
 {
@@ -17,3 +7,14 @@ defineProps({
   name: 'name-override',
 }
 </route>
+
+<template>
+  blog/[id].vue: {{ id }}
+</template>
+
+<script setup lang="ts">
+defineProps({
+  id: String,
+})
+
+</script>
