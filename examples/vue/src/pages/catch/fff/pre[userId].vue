@@ -1,12 +1,12 @@
 <script setup lang="ts">
 defineProps({
-  any: Array,
+  userId: String,
 })
 
 </script>
 
 <template>
   <div>
-    catch for _.vue :{{ any }}
+  catch for  pre[userId].vue :   {{ userId }}
   </div>
 </template>

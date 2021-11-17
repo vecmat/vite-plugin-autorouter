@@ -4,7 +4,7 @@ path ='/test'
 </route>
 
 <template lang="pug">
-p /test layout
+p Test layout
 router-view
 </template>
 

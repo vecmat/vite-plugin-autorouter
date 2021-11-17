@@ -1,3 +1,9 @@
 <template>
-  blog/today/index.vue
+  blog/{{id}}/index.vue
 </template>
+
+<script setup lang="ts">
+defineProps({
+  id: String,
+})
+</script>

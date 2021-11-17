@@ -1,8 +1,8 @@
 <template>
 
-This is liar 
+This is liar router
 <br>
-"/blog/liar.vue"
+file location ："/blog/liar.vue"
 </template>
 <route lang="toml">
 name ='current'
