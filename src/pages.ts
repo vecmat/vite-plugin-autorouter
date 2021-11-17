@@ -17,7 +17,7 @@ function matchFormat(path:string){
     // "/aaa/bbb[any]/ddd" => "/aaa/bbb:/ddd"
     path = path.replace(/(\[([^\[\]]+)\])/g,":$2")
     // /:/sss:/   ====>  /:any(.*)*/sss:any/
-    path = path.replace(/(^|\/)(\:)(\/|$)/g,"$1:any(.*)*$3")
+    path = path.replace(/(^|\/)(\:)(\/|$)/g,"$1:any*$3")
     path = path.replace(/(^|\/)([^\]\/]*)?(\:)(\/|$)/g,"$1$2:any$4")
     return path ;
 }
@@ -31,7 +31,7 @@ async function setPage(pages: ResolvedPages, dir:string, file: string, options: 
     filename =  matchFormat(filename)
     parents =  matchFormat(parents)
     let page : ResolvedPage = { 
-        name:`${filename}` ,
+        name:`${file}` ,
         path:`/${filename}` , 
         parents : `${parents}`,
         component : `/${file}`,

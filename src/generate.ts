@@ -68,7 +68,6 @@ function insertRouter(stack: Route[], parent: string, route: Route):boolean {
         // console.log(node.chain,">>>",parent)
         if (node.chain?.endsWith(parent)) {
             inserted = true;
-            route.name = node.name +"-"+  route.name;
             route.chain = node.chain +  route.path;
             node.children = node.children || [];
             node.children.push(route);
@@ -131,6 +130,7 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
                 chain: parent+path,
                 component,
             };
+            Object.assign(route,page)
             let inserted = insertRouter(stack, parent, route);
             // 深度目录直接创建多层级路由
             // insert for depth router
