@@ -24,6 +24,7 @@ function matchFormat(path:string){
 
 
 async function setPage(pages: ResolvedPages, dir:string, file: string, options: ResolvedOptions) {
+    file = slash(file)
     let extension = extname(file).slice(1);
     let parents = dirname(file).replace(dir,"")
     let filepath = slash(resolve(options.root, file));
