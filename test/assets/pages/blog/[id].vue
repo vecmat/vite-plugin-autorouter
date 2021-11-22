@@ -1,13 +1,8 @@
-
-<route>
-{
-  meta: {
-    requiresAuth: false,
-  },
-  name: 'name-override',
-}
+<route lang="toml">
+name ='blog'
+[meta]
+requiresAuth=true
 </route>
-
 <template>
   blog/[id].vue: {{ id }}
 </template>
@@ -16,5 +11,4 @@
 defineProps({
   id: String,
 })
-
 </script>

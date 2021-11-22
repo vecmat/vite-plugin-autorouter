@@ -13,7 +13,7 @@ Object {
   "nuxtStyle": false,
   "onClientGenerated": undefined,
   "onRoutesGenerated": undefined,
-  "pagesDir": Array [ 
+  "pagesDir": Array [
     "test/assets/pages",
   ],
   "react": true,

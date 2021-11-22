@@ -1,3 +1,3 @@
 <template>
-  about/index.vue
+about/index.vue
 </template>

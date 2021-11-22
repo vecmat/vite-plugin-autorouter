@@ -1,6 +1,5 @@
 import { parse } from "path";
 import { stringifyRoutes } from "./stringify";
-import { isDynamicRoute, isCatchAllRoute } from "./utils";
 import { Route, ResolvedOptions, ResolvedPages, ResolvedPage } from "./types";
 
 export function generateClientCode(routes: Route[], options: ResolvedOptions) {

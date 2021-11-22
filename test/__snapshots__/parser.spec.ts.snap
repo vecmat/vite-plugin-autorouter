@@ -3,8 +3,8 @@
 exports[`Parser custom block: custom block 1`] = `
 Object {
   "meta": Object {
-    "requiresAuth": false,
+    "requiresAuth": true,
   },
-  "name": "name-override",
+  "name": "blog",
 }
 `;
