@@ -1,6 +1,7 @@
 <route lang="toml">
 name= "index"
 path="/"
+alias="/index"
 </route>
 
 <template>
