@@ -2,10 +2,10 @@
 
 [![npm version](https://badgen.net/npm/v/vite-plugin-autorouter)](https://www.npmjs.com/package/vite-plugin-autorouter)
 [![monthly downloads](https://badgen.net/npm/dm/vite-plugin-autorouter)](https://www.npmjs.com/package/vite-plugin-autorouter)
-[![types](https://badgen.net/npm/types/vite-plugin-autorouter)](https://github.com/hanrea/vite-plugin-autorouter/blob/main/src/types.ts)
-[![license](https://badgen.net/npm/license/vite-plugin-autorouter)](https://github.com/hanrea/vite-plugin-autorouter/blob/main/LICENSE)
+[![types](https://badgen.net/npm/types/vite-plugin-autorouter)](https://github.com/vecmat/vite-plugin-autorouter/blob/main/src/types.ts)
+[![license](https://badgen.net/npm/license/vite-plugin-autorouter)](https://github.com/vecmat/vite-plugin-autorouter/blob/main/LICENSE)
 
-[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/hanrea/vite-plugin-autorouter)
+[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/vecmat/vite-plugin-autorouter)
 
 > File system based routing for Vue 3 applications using
 > [Vite](https://github.com/vitejs/vite)
@@ -242,7 +242,6 @@ Default SFC route block parser.
 -   **Type:** `boolean`
 -   **Default:** `false`
 
-Check: [#16](https://github.com/hanrea/vite-plugin-autorouter/issues/16)
 
 Replace '[]' to '\_' in bundle filename
 
@@ -444,4 +443,4 @@ of the prop in which the route parameters are passed.
 
 ## License
 
-MIT License © 2021 [hanrea](https://github.com/hanrea)
+MIT License © 2021 [Vecmat](https://github.com/vecmat)

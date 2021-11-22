@@ -10,7 +10,7 @@ const options = resolveOptions({
   },
 })
 const nuxtOptions = resolveOptions({
-  pagesDir: ['test/assets/nuxt-pages'],
+  pagesDir: ['test/assets/nuxt'],
   nuxtStyle: true,
 })
 

@@ -1,19 +1,14 @@
-<script setup lang="ts">
-defineProps({
-  id: String,
-})
-
-</script>
-
+<route lang="toml">
+name ='blog'
+[meta]
+requiresAuth=true
+</route>
 <template>
   blog/[id].vue: {{ id }}
 </template>
 
-<route>
-{
-  meta: {
-    requiresAuth: false,
-  },
-  name: 'name-override',
-}
-</route>
+<script setup lang="ts">
+defineProps({
+  id: String,
+})
+</script>

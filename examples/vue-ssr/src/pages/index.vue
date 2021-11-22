@@ -7,9 +7,7 @@
   </div>
 </template>
 
-<route>
-{
-  name: "name-override",
-  meta: {requiresAuth: false}
-}
+<route lang="toml">
+path="/"
+alias="/index"
 </route>

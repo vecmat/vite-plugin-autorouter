@@ -2,23 +2,34 @@
 
 exports[`Get files Pages file: page files 1`] = `
 Array [
-  "[...all].vue",
-  "[sensor]/current.vue",
-  "[userId].vue",
+  "404.vue",
   "about.vue",
   "about/index.vue",
+  "about/test.vue",
   "blog/[id].vue",
+  "blog/[id]/index.vue",
   "blog/index.vue",
+  "blog/liar.vue",
+  "blog/today.vue",
   "blog/today/index.vue",
+  "catch/aaa/_.vue",
+  "catch/bbb/_userId.vue",
+  "catch/ccc/[...].vue",
+  "catch/ddd/[...all].vue",
+  "catch/eee/[userId].vue",
+  "catch/fff/pre[userId].vue",
+  "catch/index.vue",
   "components.vue",
   "index.vue",
+  "sensor.vue",
+  "sensor/404.vue",
+  "sensor/index.vue",
 ]
 `;
 
 exports[`Get page dirs With glob: glob dirs 1`] = `
 Array [
-  "test/assets/deep-pages/bar/pages",
-  "test/assets/deep-pages/foo/pages",
-
+  "test/assets/deep/bar/pages",
+  "test/assets/deep/foo/pages",
 ]
 `;

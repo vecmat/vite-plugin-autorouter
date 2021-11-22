@@ -7,6 +7,6 @@ defineProps({
 
 <template>
   <div>
-    {{ userId }}
+  catch for  pre[userId].vue :   {{ userId }}
   </div>
 </template>

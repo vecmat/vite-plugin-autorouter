@@ -1,3 +1,4 @@
 <template>
-  ...all route
+sensor Index page
 </template>
+

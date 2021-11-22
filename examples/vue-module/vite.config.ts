@@ -1,8 +1,8 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
 import Vue from "@vitejs/plugin-vue";
-import Auto from "../../dist";
-
+import Auto from "../../dist/";
+import Markdown from "vite-plugin-md";
 const config = defineConfig({
     plugins: [
         Vue({
@@ -35,6 +35,7 @@ const config = defineConfig({
                 }
             },
         }),
+        Markdown(),
     ],
 });
 

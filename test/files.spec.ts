@@ -5,7 +5,7 @@ import { getPageFiles, getPageDirs } from '../src/files'
 
 const options = resolveOptions({})
 const testPagesDir = 'test/assets/pages'
-const testDeepPagesDir = 'test/assets/deep-pages'
+const testDeepPagesDir = 'test/assets/deep'
 
 describe('Get files', () => {
   test('Pages file', async() => {

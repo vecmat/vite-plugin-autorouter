@@ -5,9 +5,9 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/hanrea/vite-plugin-autorouter"
+        "url": "https://github.com/vecmat/vite-plugin-autorouter"
     },
-    "author": "hanrea",
+    "author": "Vecmat",
     "files": [
         "dist",
         "client.d.ts",
@@ -23,8 +23,8 @@
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
-    "homepage": "https://github.com/hanrea/vite-plugin-autorouter",
-    "bugs": "https://github.com/hanrea/vite-plugin-autorouter/issues",
+    "homepage": "https://github.com/vecmat/vite-plugin-autorouter",
+    "bugs": "https://github.com/vecmat/vite-plugin-autorouter/issues",
     "scripts": {
         "dev": "npm run build --watch --ignore-watch='examples'",
         "build": "pnpm build-cjs && pnpm build-esm",
@@ -32,7 +32,7 @@
         "build-esm": "tsup src/index.ts --format esm --no-splitting --target node13.2",
         "prepublishOnly": "npm run build",
         "release": "bumpp --commit --tag --push",
-        "example:dev": "npm -C examples/vue run dev",
+        "example:dev": "npm -C examples/vue-module run dev",
         "example:build": "npm -C examples/vue run build",
         "example:serve": "npm -C examples/vue run serve",
         "test": "jest --runInBand",

@@ -12,7 +12,7 @@ const config = defineConfig({
         Auto({
             pagesDir: [
                 "src/pages",
-                "src/features/admin/pages" 
+                "src/features" 
             ],
             extensions: ["vue", "md"],
             syncIndex: false,

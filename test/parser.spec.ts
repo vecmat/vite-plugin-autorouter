@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { resolve } from 'path'
-import { parseSFC, parseCustomBlock } from '../src/parser'
 import { resolveOptions } from '../src/options'
+import { parseSFC, parseCustomBlock } from '../src/parser'
 
 const options = resolveOptions({})
 const path = resolve('./test/assets/pages/blog/[id].vue')

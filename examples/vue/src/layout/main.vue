@@ -4,7 +4,7 @@ path ='/admin'
 </route>
 
 <template lang="pug">
-p /main layout
+p  Main layout
 router-view
 </template>
 
