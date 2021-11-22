@@ -12,7 +12,7 @@ path="/"
         <router-link to="/markdown"> markdown </router-link> <br>
         <router-link to="/components"> components </router-link> <br>
         <router-link to="/catch/index"> RegEXP  Match </router-link><br>
-        <router-link to="/xxx/xxxx/xxx/xxx/x/x"> Global Match (404) </router-link> 
+        <router-link to="/AAA/BBB/CCC/DDD/EEE/FFF"> Global Match (404) </router-link> 
     </div>
 </template>
 
