@@ -25,10 +25,10 @@ Add to your `vite.config.js`:
 
 ```js
 import Vue from "@vitejs/plugin-vue";
-import Auto from "vite-plugin-autorouter";
+import AutoRouter from "vite-plugin-autorouter";
 
 export default {
-    plugins: [Vue(), Auto()],
+    plugins: [Vue(), AutoRouter()],
 };
 ```
 
@@ -45,12 +45,12 @@ Add to your `vite.config.js`:
 
 ```js
 import Vue from "@vitejs/plugin-vue";
-import Auto from "vite-plugin-autorouter";
+import AutoRouter from "vite-plugin-autorouter";
 
 export default {
     plugins: [
         Vue(),
-        Auto({
+        AutoRouter({
             react: true,
         }),
     ],
@@ -108,12 +108,12 @@ plugin:
 
 ```js
 // vite.config.js
-import Auto from "vite-plugin-autorouter";
+import AutoRouter from "vite-plugin-autorouter";
 
 export default {
     plugins: [
-        Auto({
-            pagesDir: "src/views",
+        AutoRouter({
+            pagesDir: ["src/views"],
         }),
     ],
 };
@@ -121,7 +121,7 @@ export default {
 
 ### pagesDir
 
--   **Type:** `string | string[]`
+-   **Type:** `string[]`
 -   **Default:** `'src/pages'`
 
 Relative path to the pages directory. Supports globs.
@@ -153,11 +153,11 @@ src/
 // vite.config.js
 export default {
     plugins: [
-        Auto({
+        AutoRouter({
             pagesDir: [
-                { dir: "src/pages" },
-                { dir: "src/admin/pages" },
-                { dir: "src/features/**/pages" },
+                 "src/pages" ,
+                 "src/admin/pages" ,
+                 "src/features/**/pages" 
             ],
         }),
     ],
@@ -195,7 +195,7 @@ src/pages/
 // vite.config.js
 export default {
     plugins: [
-        Auto({
+        AutoRouter({
             exclude: ["**/components/*.vue"],
         }),
     ],
@@ -220,7 +220,7 @@ can use a function to resolve the value based on the route path. For example:
 // vite.config.js
 export default {
     plugins: [
-        Auto({
+        AutoRouter({
             importMode(path) {
                 // Load about page synchronously, all other pages are async.
                 return path.includes("about") ? "sync" : "async";
@@ -268,7 +268,7 @@ useful for augmenting your routes with extra data (e.g. route metadata).
 export default {
     // ...
     plugins: [
-        Auto({
+        AutoRouter({
             extendRoute(route, parent) {
                 if (route.path === "/") {
                     // Index is unauthenticated.
