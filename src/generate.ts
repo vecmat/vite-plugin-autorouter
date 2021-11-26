@@ -87,24 +87,31 @@ function insertRouter(stack: Route[], parent: string, route: Route):boolean {
 
 
 function prepareRoutes(stack: Route[], options: ResolvedOptions, root?: boolean) {
-    let repeat = new Set();
+    let dupName = new Set();
+    let dupPaths = new Set();
     for (let node of stack) {
-       
-        if (repeat.has(node.path)) {
-            throw new Error(`[vite-plugin-auturouter] duplicate route for ${node.path} :: ${node.component}`);
-        }
-
-        repeat.add(node.path);
-        node.name=node.chain;
+        node.name = node.name || node.chain;
         delete node.chain;
         delete node.paths;
+
+        if (dupName.has(node.name)) {
+            throw new Error(`[vite-plugin-auturouter] duplicate route name  '${node.name}' :: ${node.component}.`
+            +`\r\n 😈😈😈 Can't set ‘name’ attribute when use 'paths' or 'parents' attribute !😈😈😈`);
+        }
+        if (dupPaths.has(node.path)) {
+            throw new Error(`[vite-plugin-auturouter] duplicate route path '${node.path}' for  ${node.component}`);
+        }
+        dupName.add(node.name);
+        dupPaths.add(node.path);
+        
+        
         if (root) {
             node.path = node.path.replace(/^\$/, "");
         } else {
             node.path = node.path.replace(/^\//, "");
         }
         if (!options.react) {
-            // todo : Hand it over to handle function
+            // todo : Hand it over to handle function or block
             node.props = true;
         } else {
             node.routes = node.children;

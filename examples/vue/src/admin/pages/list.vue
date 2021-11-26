@@ -1,5 +1,4 @@
 <route lang="toml">
-name ='DataList'
 path = '/list'
 parents = [ "$/user", "$/data"]
 </route>

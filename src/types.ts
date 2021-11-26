@@ -3,8 +3,8 @@ export type ImportModeResolveFn = (filepath: string) => ImportMode;
 
 
 export interface ResolvedPage extends Record<string, any> {
+    name?: string;
     path: string;
-    name: string;
     component: string;
 }
 export type ResolvedPages = Map<string, ResolvedPage>;

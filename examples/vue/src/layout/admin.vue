@@ -1,5 +1,6 @@
 <route lang="toml">
-name ='Admin'
+# if use `paths` can't set name attribute
+# ! name ='Admin'
 paths = ["/user","/data"]
 </route>
 
