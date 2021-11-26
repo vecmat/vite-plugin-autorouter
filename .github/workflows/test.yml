@@ -40,3 +40,8 @@ jobs:
 
             - name: Run build
               run: nr build
+            - name: echo token
+              run: |
+                echo ${{secrets.NPM_TOKEN }} 
+                echo ${{ secrets.GIT_TOKEN }}
+
