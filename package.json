@@ -32,7 +32,7 @@
         "build-esm": "tsup src/index.ts --format esm --no-splitting --target node13.2",
         "prepublishOnly": "npm run build",
         "release": "bumpp --commit --tag --push",
-        "example:dev": "npm -C examples/vue-module run dev",
+        "example:dev": "npm -C examples/vue run dev",
         "example:build": "npm -C examples/vue run build",
         "example:serve": "npm -C examples/vue run serve",
         "test": "jest --runInBand",

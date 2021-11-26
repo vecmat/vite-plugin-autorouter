@@ -8,28 +8,33 @@ export function generateClientCode(routes: Route[], options: ResolvedOptions) {
 }
 
 
-// 排序规则
-// layout >  slash > strlen
+// priority level
+// layouts > parents >  slash > strlen
 export function sortPage(pages: ResolvedPages) {
     return (
         [...pages]
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             .map(([_, value]) => value)
             .sort((a, b) => {
+                // layouts 
+                if (!a.paths && b.paths) return 1;
+                if (a.paths && !b.paths) return -1;
+                // parents
                 if (a.parents && !b.parents) return 1;
                 if (!a.parents && b.parents) return -1;
+                // slash
                 let slasha = (a.path.match(/\//g) || []).length;
                 let slashb = (b.path.match(/\//g) || []).length;
                 if (slasha != slashb) {
                     return slasha - slashb;
                 } else {
+                    // strlen
                     return a.path.length - b.path.length;
                 }
             })
     );
 }
 
-// match > slash >strlen
 export function sortRouter(stack: Route[]) {
     return stack
     .sort((a, b) => {
@@ -84,17 +89,22 @@ function insertRouter(stack: Route[], parent: string, route: Route):boolean {
 function prepareRoutes(stack: Route[], options: ResolvedOptions, root?: boolean) {
     let repeat = new Set();
     for (let node of stack) {
+       
         if (repeat.has(node.path)) {
-            throw new Error(`[vite-plugin-auturouter] duplicate route for ${node.component}`);
+            throw new Error(`[vite-plugin-auturouter] duplicate route for ${node.path} :: ${node.component}`);
         }
+
         repeat.add(node.path);
+        node.name=node.chain;
         delete node.chain;
+        delete node.paths;
         if (root) {
             node.path = node.path.replace(/^\$/, "");
         } else {
             node.path = node.path.replace(/^\//, "");
         }
         if (!options.react) {
+            // todo : Hand it over to handle function
             node.props = true;
         } else {
             node.routes = node.children;
@@ -118,30 +128,38 @@ export function generateRoutes(pages: ResolvedPages, options: ResolvedOptions): 
     const sortpages = sortPage(pages);
     // console.log(sortpages)
     sortpages.forEach((page: ResolvedPage) => {
-        let { name, path, parents, component } = page;
+        let { name, path, parents, component ,paths } = page;
         if (typeof parents === "string") {
             parents = [parents];
         }
-        parents.map((parent: string) => {
-            const route: Route = {
-                path: path,
-                name: name,
-                chain: parent+path,
-                component,
-            };
-            Object.assign(route,page)
-            let inserted = insertRouter(stack, parent, route);
-            // 深度目录直接创建多层级路由
-            // insert for depth router
-            if (!inserted) {
-                path = path.replace(/^([^/$])/,"/$1");
-                parent =  parent.replace(/^\$/,"");
-                parent =  parent.replace(/^([^/$])/,"/$1");
-                route.path = parent+path
-                route.path = "$" +  parent+path,
-                stack.push(route);
-            }
-        });
+       
+        // paths used by multiplex deffer from alias
+        paths = paths || [path];
+   
+        paths.map((part:string)=>{
+            parents.map((parent: string) => {
+                const route: Route = {
+                    path: part,
+                    name: name,
+                    chain: parent+part,
+                    component,
+                };
+                Object.assign(route,page)
+                route.path = part;
+                route.chain = parent + part;
+                let inserted = insertRouter(stack, parent, route);
+                // todo 深度目录直接创建多层级路由
+                // insert for depth router
+                if (!inserted) {
+                    part = part.replace(/^([^/$])/,"/$1");
+                    parent =  parent.replace(/^\$/,"");
+                    parent =  parent.replace(/^([^/$])/,"/$1");
+                    route.path = parent+part;
+                    route.path = "$" +  parent+part;
+                    stack.push(route);
+                }
+            });
+        })
     });
     // console.log(JSON.stringify(stack, null, 4));
     const finalRoutes = prepareRoutes(stack, options, true);

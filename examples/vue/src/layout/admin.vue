@@ -1,6 +1,6 @@
 <route lang="toml">
-name ='test'
-path ='/test'
+name ='Admin'
+paths = ["/user","/data"]
 </route>
 
 <template lang="pug">

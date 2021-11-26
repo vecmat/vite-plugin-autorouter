@@ -41,8 +41,11 @@ async function setPage(pages: ResolvedPages, dir:string, file: string, options: 
     if(["vue", "md"].includes(extension)){
         block = await getRouteBlock(filepath, options)
     }
+
+
+
     Object.assign(page,block)
-    page.path =   page.path.replace(/^([^/$])/,"/$1");
+    page.path =  page.path.replace(/^([^/$])/,"/$1");
     pages.set(file,page);
 }
 

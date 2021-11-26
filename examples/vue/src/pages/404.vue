@@ -8,12 +8,10 @@ pppck="asdfasdf"
 <template lang="pug">
 p Global 404 page for :
 | {{level}}
-
 </template>
 
 <script lang="ts" setup>
 defineProps({
   level: Array
 })
-
 </script>

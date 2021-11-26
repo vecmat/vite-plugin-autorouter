@@ -3,7 +3,7 @@
 exports[`Generate Nuxt Style Routes: nuxt style client code 1`] = `
 ";
 
-const routes = [{\\"path\\":\\"/about\\",\\"name\\":\\"test/assets/nuxt/about.vue\\",\\"component\\":() => import('/test/assets/nuxt/about.vue'),\\"parents\\":\\"\\",\\"children\\":[{\\"path\\":\\"index\\",\\"name\\":\\"test/assets/nuxt/about/index.vue\\",\\"component\\":() => import('/test/assets/nuxt/about/index.vue'),\\"parents\\":\\"/about\\",\\"props\\":true}],\\"props\\":true},{\\"path\\":\\"/index\\",\\"name\\":\\"name-override\\",\\"component\\":() => import('/test/assets/nuxt/index.vue'),\\"parents\\":\\"\\",\\"meta\\":{\\"requiresAuth\\":false},\\"props\\":true},{\\"path\\":\\"/components\\",\\"name\\":\\"test/assets/nuxt/components.vue\\",\\"component\\":() => import('/test/assets/nuxt/components.vue'),\\"parents\\":\\"\\",\\"props\\":true},{\\"path\\":\\"/blog/index\\",\\"name\\":\\"test/assets/nuxt/blog/index.vue\\",\\"component\\":() => import('/test/assets/nuxt/blog/index.vue'),\\"parents\\":\\"/blog\\",\\"props\\":true},{\\"path\\":\\"/blog/today/index\\",\\"name\\":\\"test/assets/nuxt/blog/today/index.vue\\",\\"component\\":() => import('/test/assets/nuxt/blog/today/index.vue'),\\"parents\\":\\"/blog/today\\",\\"props\\":true},{\\"path\\":\\"/blog/:id\\",\\"name\\":\\"test/assets/nuxt/blog/_id.vue\\",\\"component\\":() => import('/test/assets/nuxt/blog/_id.vue'),\\"parents\\":\\"/blog\\",\\"props\\":true},{\\"path\\":\\"/:any*\\",\\"name\\":\\"test/assets/nuxt/_.vue\\",\\"component\\":() => import('/test/assets/nuxt/_.vue'),\\"parents\\":\\"\\",\\"props\\":true},{\\"path\\":\\"/:userId\\",\\"name\\":\\"test/assets/nuxt/_userId.vue\\",\\"component\\":() => import('/test/assets/nuxt/_userId.vue'),\\"parents\\":\\"\\",\\"props\\":true},{\\"path\\":\\"/:sensor/current\\",\\"name\\":\\"test/assets/nuxt/_sensor/current.vue\\",\\"component\\":() => import('/test/assets/nuxt/_sensor/current.vue'),\\"parents\\":\\"/:sensor\\",\\"props\\":true}];
+const routes = [{\\"path\\":\\"/about\\",\\"name\\":\\"$/about\\",\\"component\\":() => import('/test/assets/nuxt/about.vue'),\\"parents\\":\\"\\",\\"children\\":[{\\"path\\":\\"index\\",\\"name\\":\\"$/about/index\\",\\"component\\":() => import('/test/assets/nuxt/about/index.vue'),\\"parents\\":\\"/about\\",\\"props\\":true}],\\"props\\":true},{\\"path\\":\\"/index\\",\\"name\\":\\"$/index\\",\\"component\\":() => import('/test/assets/nuxt/index.vue'),\\"parents\\":\\"\\",\\"meta\\":{\\"requiresAuth\\":false},\\"props\\":true},{\\"path\\":\\"/components\\",\\"name\\":\\"$/components\\",\\"component\\":() => import('/test/assets/nuxt/components.vue'),\\"parents\\":\\"\\",\\"props\\":true},{\\"path\\":\\"/blog/index\\",\\"name\\":\\"/blog/index\\",\\"component\\":() => import('/test/assets/nuxt/blog/index.vue'),\\"parents\\":\\"/blog\\",\\"props\\":true},{\\"path\\":\\"/blog/today/index\\",\\"name\\":\\"/blog/today/index\\",\\"component\\":() => import('/test/assets/nuxt/blog/today/index.vue'),\\"parents\\":\\"/blog/today\\",\\"props\\":true},{\\"path\\":\\"/blog/:id\\",\\"name\\":\\"/blog/:id\\",\\"component\\":() => import('/test/assets/nuxt/blog/_id.vue'),\\"parents\\":\\"/blog\\",\\"props\\":true},{\\"path\\":\\"/:any*\\",\\"name\\":\\"$/:any*\\",\\"component\\":() => import('/test/assets/nuxt/_.vue'),\\"parents\\":\\"\\",\\"props\\":true},{\\"path\\":\\"/:userId\\",\\"name\\":\\"$/:userId\\",\\"component\\":() => import('/test/assets/nuxt/_userId.vue'),\\"parents\\":\\"\\",\\"props\\":true},{\\"path\\":\\"/:sensor/current\\",\\"name\\":\\"/:sensor/current\\",\\"component\\":() => import('/test/assets/nuxt/_sensor/current.vue'),\\"parents\\":\\"/:sensor\\",\\"props\\":true}];
 
 export default routes;"
 `;
@@ -14,14 +14,14 @@ Array [
     "children": Array [
       Object {
         "component": "/test/assets/nuxt/about/index.vue",
-        "name": "test/assets/nuxt/about/index.vue",
+        "name": "$/about/index",
         "parents": "/about",
         "path": "index",
         "props": true,
       },
     ],
     "component": "/test/assets/nuxt/about.vue",
-    "name": "test/assets/nuxt/about.vue",
+    "name": "$/about",
     "parents": "",
     "path": "/about",
     "props": true,
@@ -31,56 +31,56 @@ Array [
     "meta": Object {
       "requiresAuth": false,
     },
-    "name": "name-override",
+    "name": "$/index",
     "parents": "",
     "path": "/index",
     "props": true,
   },
   Object {
     "component": "/test/assets/nuxt/components.vue",
-    "name": "test/assets/nuxt/components.vue",
+    "name": "$/components",
     "parents": "",
     "path": "/components",
     "props": true,
   },
   Object {
     "component": "/test/assets/nuxt/blog/index.vue",
-    "name": "test/assets/nuxt/blog/index.vue",
+    "name": "/blog/index",
     "parents": "/blog",
     "path": "/blog/index",
     "props": true,
   },
   Object {
     "component": "/test/assets/nuxt/blog/today/index.vue",
-    "name": "test/assets/nuxt/blog/today/index.vue",
+    "name": "/blog/today/index",
     "parents": "/blog/today",
     "path": "/blog/today/index",
     "props": true,
   },
   Object {
     "component": "/test/assets/nuxt/blog/_id.vue",
-    "name": "test/assets/nuxt/blog/_id.vue",
+    "name": "/blog/:id",
     "parents": "/blog",
     "path": "/blog/:id",
     "props": true,
   },
   Object {
     "component": "/test/assets/nuxt/_.vue",
-    "name": "test/assets/nuxt/_.vue",
+    "name": "$/:any*",
     "parents": "",
     "path": "/:any*",
     "props": true,
   },
   Object {
     "component": "/test/assets/nuxt/_userId.vue",
-    "name": "test/assets/nuxt/_userId.vue",
+    "name": "$/:userId",
     "parents": "",
     "path": "/:userId",
     "props": true,
   },
   Object {
     "component": "/test/assets/nuxt/_sensor/current.vue",
-    "name": "test/assets/nuxt/_sensor/current.vue",
+    "name": "/:sensor/current",
     "parents": "/:sensor",
     "path": "/:sensor/current",
     "props": true,
@@ -91,7 +91,7 @@ Array [
 exports[`Generate Routes: client code 1`] = `
 ";
 
-const routes = [{\\"path\\":\\"/\\",\\"name\\":\\"index\\",\\"component\\":() => import('/test/assets/pages/index.vue'),\\"parents\\":\\"\\",\\"props\\":true},{\\"path\\":\\"/about\\",\\"name\\":\\"test/assets/pages/about.vue\\",\\"component\\":() => import('/test/assets/pages/about.vue'),\\"parents\\":\\"\\",\\"redirect\\":\\"/about/index\\",\\"children\\":[{\\"path\\":\\"test\\",\\"name\\":\\"test/assets/pages/about/test.vue\\",\\"component\\":() => import('/test/assets/pages/about/test.vue'),\\"parents\\":\\"/about\\",\\"props\\":true},{\\"path\\":\\"liar\\",\\"name\\":\\"current\\",\\"component\\":() => import('/test/assets/pages/blog/liar.vue'),\\"parents\\":\\"$/about\\",\\"meta\\":{\\"requiresAuth\\":true},\\"props\\":true},{\\"path\\":\\"index\\",\\"name\\":\\"test/assets/pages/about/index.vue\\",\\"component\\":() => import('/test/assets/pages/about/index.vue'),\\"parents\\":\\"/about\\",\\"props\\":true}],\\"props\\":true},{\\"path\\":\\"/sensor\\",\\"name\\":\\"sensor\\",\\"component\\":() => import('/test/assets/pages/sensor.vue'),\\"parents\\":\\"\\",\\"children\\":[{\\"path\\":\\"index\\",\\"name\\":\\"test/assets/pages/sensor/index.vue\\",\\"component\\":() => import('/test/assets/pages/sensor/index.vue'),\\"parents\\":\\"/sensor\\",\\"props\\":true},{\\"path\\":\\":path*\\",\\"name\\":\\"404\\",\\"component\\":() => import('/test/assets/pages/sensor/404.vue'),\\"parents\\":\\"/sensor\\",\\"props\\":true}],\\"props\\":true},{\\"path\\":\\"/components\\",\\"name\\":\\"test/assets/pages/components.vue\\",\\"component\\":() => import('/test/assets/pages/components.vue'),\\"parents\\":\\"\\",\\"meta\\":{\\"lang\\":\\"yaml\\"},\\"props\\":true},{\\"path\\":\\"/blog/\\",\\"name\\":\\"test/assets/pages/blog/index.vue\\",\\"component\\":() => import('/test/assets/pages/blog/index.vue'),\\"parents\\":\\"/blog\\",\\"alias\\":\\"/blog/index\\",\\"props\\":true},{\\"path\\":\\"/blog/today\\",\\"name\\":\\"test/assets/pages/blog/today.vue\\",\\"component\\":() => import('/test/assets/pages/blog/today.vue'),\\"parents\\":\\"/blog\\",\\"children\\":[{\\"path\\":\\"index\\",\\"name\\":\\"test/assets/pages/blog/today/index.vue\\",\\"component\\":() => import('/test/assets/pages/blog/today/index.vue'),\\"parents\\":\\"/blog/today\\",\\"props\\":true}],\\"props\\":true},{\\"path\\":\\"/catch/index\\",\\"name\\":\\"test/assets/pages/catch/index.vue\\",\\"component\\":() => import('/test/assets/pages/catch/index.vue'),\\"parents\\":\\"/catch\\",\\"props\\":true},{\\"path\\":\\"/catch/ddd/:all\\",\\"name\\":\\"test/assets/pages/catch/ddd/[...all].vue\\",\\"component\\":() => import('/test/assets/pages/catch/ddd/[...all].vue'),\\"parents\\":\\"/catch/ddd\\",\\"props\\":true},{\\"path\\":\\"/catch/aaa/:any*\\",\\"name\\":\\"test/assets/pages/catch/aaa/_.vue\\",\\"component\\":() => import('/test/assets/pages/catch/aaa/_.vue'),\\"parents\\":\\"/catch/aaa\\",\\"props\\":true},{\\"path\\":\\"/catch/ccc/:any*\\",\\"name\\":\\"test/assets/pages/catch/ccc/[...].vue\\",\\"component\\":() => import('/test/assets/pages/catch/ccc/[...].vue'),\\"parents\\":\\"/catch/ccc\\",\\"props\\":true},{\\"path\\":\\"/catch/bbb/:userId\\",\\"name\\":\\"test/assets/pages/catch/bbb/_userId.vue\\",\\"component\\":() => import('/test/assets/pages/catch/bbb/_userId.vue'),\\"parents\\":\\"/catch/bbb\\",\\"props\\":true},{\\"path\\":\\"/catch/eee/:userId\\",\\"name\\":\\"test/assets/pages/catch/eee/[userId].vue\\",\\"component\\":() => import('/test/assets/pages/catch/eee/[userId].vue'),\\"parents\\":\\"/catch/eee\\",\\"props\\":true},{\\"path\\":\\"/catch/fff/pre:userId\\",\\"name\\":\\"test/assets/pages/catch/fff/pre[userId].vue\\",\\"component\\":() => import('/test/assets/pages/catch/fff/pre[userId].vue'),\\"parents\\":\\"/catch/fff\\",\\"props\\":true},{\\"path\\":\\"/blog/:id\\",\\"name\\":\\"blog\\",\\"component\\":() => import('/test/assets/pages/blog/[id].vue'),\\"parents\\":\\"/blog\\",\\"meta\\":{\\"requiresAuth\\":true},\\"children\\":[{\\"path\\":\\"index\\",\\"name\\":\\"test/assets/pages/blog/[id]/index.vue\\",\\"component\\":() => import('/test/assets/pages/blog/[id]/index.vue'),\\"parents\\":\\"/blog/:id\\",\\"props\\":true}],\\"props\\":true},{\\"path\\":\\"/:level*\\",\\"name\\":\\"zzz\\",\\"component\\":() => import('/test/assets/pages/404.vue'),\\"parents\\":\\"\\",\\"meta\\":{\\"pppck\\":\\"asdfasdf\\"},\\"props\\":true}];
+const routes = [{\\"path\\":\\"/\\",\\"name\\":\\"$/\\",\\"component\\":() => import('/test/assets/pages/index.vue'),\\"parents\\":\\"\\",\\"props\\":true},{\\"path\\":\\"/about\\",\\"name\\":\\"$/about\\",\\"component\\":() => import('/test/assets/pages/about.vue'),\\"parents\\":\\"\\",\\"redirect\\":\\"/about/index\\",\\"children\\":[{\\"path\\":\\"test\\",\\"name\\":\\"$/about/test\\",\\"component\\":() => import('/test/assets/pages/about/test.vue'),\\"parents\\":\\"/about\\",\\"props\\":true},{\\"path\\":\\"liar\\",\\"name\\":\\"$/about/liar\\",\\"component\\":() => import('/test/assets/pages/blog/liar.vue'),\\"parents\\":\\"$/about\\",\\"meta\\":{\\"requiresAuth\\":true},\\"props\\":true},{\\"path\\":\\"index\\",\\"name\\":\\"$/about/index\\",\\"component\\":() => import('/test/assets/pages/about/index.vue'),\\"parents\\":\\"/about\\",\\"props\\":true}],\\"props\\":true},{\\"path\\":\\"/sensor\\",\\"name\\":\\"$/sensor\\",\\"component\\":() => import('/test/assets/pages/sensor.vue'),\\"parents\\":\\"\\",\\"children\\":[{\\"path\\":\\"index\\",\\"name\\":\\"$/sensor/index\\",\\"component\\":() => import('/test/assets/pages/sensor/index.vue'),\\"parents\\":\\"/sensor\\",\\"props\\":true},{\\"path\\":\\":path*\\",\\"name\\":\\"$/sensor/:path*\\",\\"component\\":() => import('/test/assets/pages/sensor/404.vue'),\\"parents\\":\\"/sensor\\",\\"props\\":true}],\\"props\\":true},{\\"path\\":\\"/components\\",\\"name\\":\\"$/components\\",\\"component\\":() => import('/test/assets/pages/components.vue'),\\"parents\\":\\"\\",\\"meta\\":{\\"lang\\":\\"yaml\\"},\\"props\\":true},{\\"path\\":\\"/blog/\\",\\"name\\":\\"/blog/\\",\\"component\\":() => import('/test/assets/pages/blog/index.vue'),\\"parents\\":\\"/blog\\",\\"alias\\":\\"/blog/index\\",\\"props\\":true},{\\"path\\":\\"/blog/today\\",\\"name\\":\\"/blog/today\\",\\"component\\":() => import('/test/assets/pages/blog/today.vue'),\\"parents\\":\\"/blog\\",\\"children\\":[{\\"path\\":\\"index\\",\\"name\\":\\"/blog/today/index\\",\\"component\\":() => import('/test/assets/pages/blog/today/index.vue'),\\"parents\\":\\"/blog/today\\",\\"props\\":true}],\\"props\\":true},{\\"path\\":\\"/catch/index\\",\\"name\\":\\"/catch/index\\",\\"component\\":() => import('/test/assets/pages/catch/index.vue'),\\"parents\\":\\"/catch\\",\\"props\\":true},{\\"path\\":\\"/catch/ddd/:all\\",\\"name\\":\\"/catch/ddd/:all\\",\\"component\\":() => import('/test/assets/pages/catch/ddd/[...all].vue'),\\"parents\\":\\"/catch/ddd\\",\\"props\\":true},{\\"path\\":\\"/catch/aaa/:any*\\",\\"name\\":\\"/catch/aaa/:any*\\",\\"component\\":() => import('/test/assets/pages/catch/aaa/_.vue'),\\"parents\\":\\"/catch/aaa\\",\\"props\\":true},{\\"path\\":\\"/catch/ccc/:any*\\",\\"name\\":\\"/catch/ccc/:any*\\",\\"component\\":() => import('/test/assets/pages/catch/ccc/[...].vue'),\\"parents\\":\\"/catch/ccc\\",\\"props\\":true},{\\"path\\":\\"/catch/bbb/:userId\\",\\"name\\":\\"/catch/bbb/:userId\\",\\"component\\":() => import('/test/assets/pages/catch/bbb/_userId.vue'),\\"parents\\":\\"/catch/bbb\\",\\"props\\":true},{\\"path\\":\\"/catch/eee/:userId\\",\\"name\\":\\"/catch/eee/:userId\\",\\"component\\":() => import('/test/assets/pages/catch/eee/[userId].vue'),\\"parents\\":\\"/catch/eee\\",\\"props\\":true},{\\"path\\":\\"/catch/fff/pre:userId\\",\\"name\\":\\"/catch/fff/pre:userId\\",\\"component\\":() => import('/test/assets/pages/catch/fff/pre[userId].vue'),\\"parents\\":\\"/catch/fff\\",\\"props\\":true},{\\"path\\":\\"/blog/:id\\",\\"name\\":\\"/blog/:id\\",\\"component\\":() => import('/test/assets/pages/blog/[id].vue'),\\"parents\\":\\"/blog\\",\\"meta\\":{\\"requiresAuth\\":true},\\"children\\":[{\\"path\\":\\"index\\",\\"name\\":\\"/blog/:id/index\\",\\"component\\":() => import('/test/assets/pages/blog/[id]/index.vue'),\\"parents\\":\\"/blog/:id\\",\\"props\\":true}],\\"props\\":true},{\\"path\\":\\"/:level*\\",\\"name\\":\\"$/:level*\\",\\"component\\":() => import('/test/assets/pages/404.vue'),\\"parents\\":\\"\\",\\"meta\\":{\\"pppck\\":\\"asdfasdf\\"},\\"props\\":true}];
 
 export default routes;"
 `;
@@ -100,7 +100,7 @@ exports[`Generate Routes: routes 1`] = `
 Array [
   Object {
     "component": "/test/assets/pages/index.vue",
-    "name": "index",
+    "name": "$/",
     "parents": "",
     "path": "/",
     "props": true,
@@ -109,7 +109,7 @@ Array [
     "children": Array [
       Object {
         "component": "/test/assets/pages/about/test.vue",
-        "name": "test/assets/pages/about/test.vue",
+        "name": "$/about/test",
         "parents": "/about",
         "path": "test",
         "props": true,
@@ -119,21 +119,21 @@ Array [
         "meta": Object {
           "requiresAuth": true,
         },
-        "name": "current",
+        "name": "$/about/liar",
         "parents": "$/about",
         "path": "liar",
         "props": true,
       },
       Object {
         "component": "/test/assets/pages/about/index.vue",
-        "name": "test/assets/pages/about/index.vue",
+        "name": "$/about/index",
         "parents": "/about",
         "path": "index",
         "props": true,
       },
     ],
     "component": "/test/assets/pages/about.vue",
-    "name": "test/assets/pages/about.vue",
+    "name": "$/about",
     "parents": "",
     "path": "/about",
     "props": true,
@@ -143,21 +143,21 @@ Array [
     "children": Array [
       Object {
         "component": "/test/assets/pages/sensor/index.vue",
-        "name": "test/assets/pages/sensor/index.vue",
+        "name": "$/sensor/index",
         "parents": "/sensor",
         "path": "index",
         "props": true,
       },
       Object {
         "component": "/test/assets/pages/sensor/404.vue",
-        "name": "404",
+        "name": "$/sensor/:path*",
         "parents": "/sensor",
         "path": ":path*",
         "props": true,
       },
     ],
     "component": "/test/assets/pages/sensor.vue",
-    "name": "sensor",
+    "name": "$/sensor",
     "parents": "",
     "path": "/sensor",
     "props": true,
@@ -167,7 +167,7 @@ Array [
     "meta": Object {
       "lang": "yaml",
     },
-    "name": "test/assets/pages/components.vue",
+    "name": "$/components",
     "parents": "",
     "path": "/components",
     "props": true,
@@ -175,7 +175,7 @@ Array [
   Object {
     "alias": "/blog/index",
     "component": "/test/assets/pages/blog/index.vue",
-    "name": "test/assets/pages/blog/index.vue",
+    "name": "/blog/",
     "parents": "/blog",
     "path": "/blog/",
     "props": true,
@@ -184,63 +184,63 @@ Array [
     "children": Array [
       Object {
         "component": "/test/assets/pages/blog/today/index.vue",
-        "name": "test/assets/pages/blog/today/index.vue",
+        "name": "/blog/today/index",
         "parents": "/blog/today",
         "path": "index",
         "props": true,
       },
     ],
     "component": "/test/assets/pages/blog/today.vue",
-    "name": "test/assets/pages/blog/today.vue",
+    "name": "/blog/today",
     "parents": "/blog",
     "path": "/blog/today",
     "props": true,
   },
   Object {
     "component": "/test/assets/pages/catch/index.vue",
-    "name": "test/assets/pages/catch/index.vue",
+    "name": "/catch/index",
     "parents": "/catch",
     "path": "/catch/index",
     "props": true,
   },
   Object {
     "component": "/test/assets/pages/catch/ddd/[...all].vue",
-    "name": "test/assets/pages/catch/ddd/[...all].vue",
+    "name": "/catch/ddd/:all",
     "parents": "/catch/ddd",
     "path": "/catch/ddd/:all",
     "props": true,
   },
   Object {
     "component": "/test/assets/pages/catch/aaa/_.vue",
-    "name": "test/assets/pages/catch/aaa/_.vue",
+    "name": "/catch/aaa/:any*",
     "parents": "/catch/aaa",
     "path": "/catch/aaa/:any*",
     "props": true,
   },
   Object {
     "component": "/test/assets/pages/catch/ccc/[...].vue",
-    "name": "test/assets/pages/catch/ccc/[...].vue",
+    "name": "/catch/ccc/:any*",
     "parents": "/catch/ccc",
     "path": "/catch/ccc/:any*",
     "props": true,
   },
   Object {
     "component": "/test/assets/pages/catch/bbb/_userId.vue",
-    "name": "test/assets/pages/catch/bbb/_userId.vue",
+    "name": "/catch/bbb/:userId",
     "parents": "/catch/bbb",
     "path": "/catch/bbb/:userId",
     "props": true,
   },
   Object {
     "component": "/test/assets/pages/catch/eee/[userId].vue",
-    "name": "test/assets/pages/catch/eee/[userId].vue",
+    "name": "/catch/eee/:userId",
     "parents": "/catch/eee",
     "path": "/catch/eee/:userId",
     "props": true,
   },
   Object {
     "component": "/test/assets/pages/catch/fff/pre[userId].vue",
-    "name": "test/assets/pages/catch/fff/pre[userId].vue",
+    "name": "/catch/fff/pre:userId",
     "parents": "/catch/fff",
     "path": "/catch/fff/pre:userId",
     "props": true,
@@ -249,7 +249,7 @@ Array [
     "children": Array [
       Object {
         "component": "/test/assets/pages/blog/[id]/index.vue",
-        "name": "test/assets/pages/blog/[id]/index.vue",
+        "name": "/blog/:id/index",
         "parents": "/blog/:id",
         "path": "index",
         "props": true,
@@ -259,7 +259,7 @@ Array [
     "meta": Object {
       "requiresAuth": true,
     },
-    "name": "blog",
+    "name": "/blog/:id",
     "parents": "/blog",
     "path": "/blog/:id",
     "props": true,
@@ -269,7 +269,7 @@ Array [
     "meta": Object {
       "pppck": "asdfasdf",
     },
-    "name": "zzz",
+    "name": "$/:level*",
     "parents": "",
     "path": "/:level*",
     "props": true,
