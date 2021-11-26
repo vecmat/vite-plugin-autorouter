@@ -32,7 +32,6 @@ async function setPage(pages: ResolvedPages, dir:string, file: string, options: 
     filename =  matchFormat(filename)
     parents =  matchFormat(parents)
     let page : ResolvedPage = { 
-        name:`${file}` ,
         path:`/${filename}` , 
         parents : `${parents}`,
         component : `/${file}`,
@@ -41,8 +40,9 @@ async function setPage(pages: ResolvedPages, dir:string, file: string, options: 
     if(["vue", "md"].includes(extension)){
         block = await getRouteBlock(filepath, options)
     }
+
     Object.assign(page,block)
-    page.path =   page.path.replace(/^([^/$])/,"/$1");
+    page.path =  page.path.replace(/^([^/$])/,"/$1");
     pages.set(file,page);
 }
 

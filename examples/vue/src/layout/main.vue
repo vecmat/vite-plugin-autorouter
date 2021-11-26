@@ -1,7 +1,4 @@
-<route lang="toml">
-name ='admin'
-path ='/admin'
-</route>
+
 
 <template lang="pug">
 p  Main layout

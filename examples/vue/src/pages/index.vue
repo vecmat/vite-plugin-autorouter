@@ -1,6 +1,6 @@
 <route lang="toml">
-name= "index"
-path="/"
+name= "PageIndex"
+path= "/"
 alias="/index"
 </route>
 

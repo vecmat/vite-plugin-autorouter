@@ -1,23 +1,18 @@
 {
-    "version": "2.0.0",
-    "tasks": [
+	"version": "2.0.0",
+	"tasks": [
         {
-            "label": "tsc-watch",
-            "type": "shell",
-            "command": "yarn",
-            "args": [
-                "build:watch"
-            ],
+            "type": "typescript",
+            "tsconfig": "tsconfig.json",
+            "option": "watch",
             "problemMatcher": [
                 "$tsc-watch"
             ],
-            "runOptions": {
-                "runOn": "folderOpen"
+            "group": {
+                "kind": "build",
+                "isDefault": true
             },
-            "presentation": {
-                "reveal": "always",
-                "panel": "new"
-            }
+            "label": "tsc: 监视 - tsconfig.json"
         }
     ]
 }

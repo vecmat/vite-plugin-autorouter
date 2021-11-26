@@ -13,7 +13,7 @@ const config = defineConfig({
         }),
         Auto({
             pagesDir: [
-                "./layout/",
+                "src/layout/",
                 "src/admin/pages/",
                 "src/features/**/pages",
                 resolve(__dirname, "./src/pages"),

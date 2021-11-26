@@ -1,5 +1,5 @@
 <route lang="toml">
-name= "index"
+name= "PageIndex"
 path="/"
 </route>
 

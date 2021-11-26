@@ -3,24 +3,28 @@ export type ImportModeResolveFn = (filepath: string) => ImportMode;
 
 
 export interface ResolvedPage extends Record<string, any> {
+    name?: string;
     path: string;
-    name: string;
     component: string;
 }
 export type ResolvedPages = Map<string, ResolvedPage>;
 
 
 export interface Route {
+    // custom
+    chain?: string;
+    paths?: string[];
+
+    // basic
     path: string;
     name?: string;
-    chain?:string;
+    alias?: string|string[];
     props?: boolean | Record<string, any> | ((to: any) => Record<string, any>);
     component: string;
     exact?: boolean;
     routes?: Route[];
     beforeEnter?: any;
     children?: Route[];
-    childdir?: string[];
     meta?: Record<string, unknown>;
 }
 
