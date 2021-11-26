@@ -1,6 +1,6 @@
 {
     "name": "vite-plugin-autorouter",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "File system base vue-router plugin for Vite",
     "license": "MIT",
     "repository": {
