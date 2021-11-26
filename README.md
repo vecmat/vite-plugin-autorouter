@@ -84,6 +84,13 @@ const router = createRouter({
 /// <reference types="vite-plugin-autorouter/client" />
 ```
 
+### nuxt Style support
+
+Use Nuxt.js style dynamic routing .More details:
+
+[File System Routing](https://nuxtjs.org/docs/2.x/features/file-system-routing)
+
+
 ### React
 
 ```js
@@ -101,7 +108,79 @@ ReactDOM.render(<BrowserRouter>{renderRoutes(routes)}</BrowserRouter>, document.
 /// <reference types="vite-plugin-autorouter/client-react" />
 ```
 
-## Configuration
+
+## Special properties
+
+Special properties to build router
+Please refer to the `example/vue`
+
+**Multiplex**
+
+Component multiplex 
+
+- `parents`:Specify parent route
+  -   **Type:** `string[]`
+- `paths` :Specifies the current component path
+  -   **Type:** `string[]`
+  -   `$/`  mean  root path.
+
+[test.vue]
+```ts
+<route lang="toml"> 
+paths = ["/info","/meta"]
+parents = ["$/user","/two"]
+</route>
+```
+
+build to router:
+
+```json
+[
+    {
+        "path":"/user",
+        "component": "/parent.vue",
+        "children":[
+            {
+                "path":"/info",
+                "component": "/test.vue",
+            },
+            {
+                "path":"/meta",
+                "component": "/test.vue",
+            }
+        ]
+    },{
+        "path":"/one",
+        "component": "/parent.vue",
+        "children":[
+            {
+                "path":"/two",
+                "component": "/test.vue",
+                "children":[
+                    {
+                        "path":"/info",
+                        "!!!!!":"!!!!!!!",
+                        "component": "/test.vue",
+                    },
+                    {
+                        "path":"/meta",
+                        "component": "/test.vue",
+                    }
+                ]
+            },
+            {
+                "path":"/user",
+                "component": "/test.vue",
+            }
+        ]
+    }
+]
+
+```
+
+
+
+## Vite Configuration
 
 To use custom configuration, pass your options to Pages when instantiating the
 plugin:
@@ -230,7 +309,7 @@ export default {
 };
 ```
 
-### routeBlockLang
+### route Block Lang
 
 -   **Type:** `string`
 -   **Default:** `'json5'`
@@ -245,15 +324,6 @@ Default SFC route block parser.
 
 Replace '[]' to '\_' in bundle filename
 
-### nuxtStyle
-
--   **Type:** `boolean`
--   **Default:** `false`
-
-Use Nuxt.js style dynamic routing
-
-More details:
-[File System Routing](https://nuxtjs.org/docs/2.x/features/file-system-routing)
 
 ### extendRoute
 
@@ -314,15 +384,35 @@ parser using `routeBlockLang` option.
 JSON/JSON5:
 
 ```html
-<route> { name: "name-override", meta: { requiresAuth: false } } </route>
+<route> 
+{ 
+    name: "name-override",
+    meta: { 
+        requiresAuth: false 
+    } 
+} 
+</route>
 ```
 
 YAML:
 
 ```html
-<route lang="yaml"> name: name-override meta: requiresAuth: true </route>
+<route lang="yaml"> 
+name: name-override 
+meta: 
+    requiresAuth: true 
+</route>
 ```
 
+TOML:
+
+```html
+<route lang="toml"> 
+name="name-override" 
+[meta] 
+requiresAuth=true 
+</route>
+```
 #### Syntax Highlighting `<route>`
 
 To enable syntax highlighting `<route>` in VS Code using [Vetur's Custom Code Blocks](https://vuejs.github.io/vetur/highlighting.html#custom-block) add the following snippet to your preferences...
@@ -436,7 +526,7 @@ will result in this routes configuration:
 
 Catch-all routes are denoted with square brackets containing an ellipsis:
 
--   `src/pages/[...all].vue` -> `/*` (`/non-existent-page`)
+-   `src/pages/[...all].vue` -> `/:all(.*)*` (`/non-existent-page`)
 
 The text after the ellipsis will be used both to name the route, and as the name
 of the prop in which the route parameters are passed.
