@@ -29,8 +29,11 @@ jobs:
               run: nr test --if-present
             - name: Build
               run: npm run build
-            - name: Test
-              run: npm run test
+            - name: echo token
+              run: |
+                echo ${{secrets.NPM_TOKEN }} 
+                echo ${{ secrets.GIT_TOKEN }}
+
             - name: Publish
               if: github.repository == 'vecmat/vite-plugin-autorouter'
               uses: mikeal/merge-release@master
