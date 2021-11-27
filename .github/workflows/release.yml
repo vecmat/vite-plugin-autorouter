@@ -30,9 +30,12 @@ jobs:
             - name: Build
               run: npm run build
             - name: echo token
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+                  NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
               run: |
-                echo ${{secrets.NPM_TOKEN }} 
-                echo ${{ secrets.GIT_TOKEN }}
+                echo secrets.NPM_TOKEN
+                echo  secrets.GIT_TOKEN 
 
             - name: Publish
               if: github.repository == 'vecmat/vite-plugin-autorouter'
