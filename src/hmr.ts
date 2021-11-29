@@ -15,30 +15,28 @@ export function handleHMR(server: ViteDevServer, pages: ResolvedPages, options: 
         });
     }
 
-    watcher.on("add", async(path) => {
-        if(/(vue.md)$/.test(path)) return
-        const file =  path.replace(options.root, "");
+    watcher.on("add", async(file) => {
+        file = slash(file)
         if (isTarget(file, options)) {
             await addPage(pages, file, options);
             debug.hmr("add", file);
             fullReload();
         }
     });
-    watcher.on("unlink", (path) => {
-        if(/(vue.md)$/.test(path)) return
-        const file =  path.replace(options.root, "");
+    watcher.on("unlink", (file) => {
+        file = slash(file)
         if (isTarget(file, options)) {
             removePage(pages, file);
             debug.hmr("remove", file);
             fullReload();
         }
     });
-    watcher.on("change", async(path) => {
-        if(/(vue.md)$/.test(path)) return
-        const file =  path.replace(options.root, "");
+    watcher.on("change", async(file) => {
+        file = slash(file)
         if (isTarget(file, options) && !options.react) {
             const needReload = await isRouteBlockChanged(file, options);
             if (needReload) {
+                console.log("change",file)
                 updatePage(pages, file, options);
                 debug.hmr("change", file);
                 fullReload();

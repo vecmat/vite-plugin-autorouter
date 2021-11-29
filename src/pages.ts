@@ -43,7 +43,7 @@ async function setPage(pages: ResolvedPages, dir:string, file: string, options: 
 
     Object.assign(page,block)
     page.path =  page.path.replace(/^([^/$])/,"/$1");
-    pages.set(file,page);
+    pages.set(filepath,page);
 }
 
 export async function resolvePages(options: ResolvedOptions) {
@@ -77,9 +77,9 @@ export async function updatePage(pages: ResolvedPages, file: string , options: R
     const page = pages.get(file);
     if (page) {
         const customBlock = routeBlockCache.get(file) || null;
-        page.customBlock = customBlock;
+        // page.customBlock = customBlock;
+        Object.assign(page,customBlock)
         pages.set(file, page);
-        
     }
     if(file === "UNMATCHED"){
         console.log(options.root)

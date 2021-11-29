@@ -116,9 +116,7 @@ export async function isRouteBlockChanged(filePath: string, options: ResolvedOpt
     debug.cache(routeBlockCache);
     const oldRouteBlock = routeBlockCache.get(filePath);
     const routeBlock = await getRouteBlock(filePath, options);
-
     debug.hmr("%s old: %O", filePath, oldRouteBlock);
     debug.hmr("%s new: %O", filePath, routeBlock);
-
     return !deepEqual(oldRouteBlock, routeBlock);
 }
